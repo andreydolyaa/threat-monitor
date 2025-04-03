@@ -19,14 +19,27 @@ export class WsServer {
 
   initListeners() {
     this.wsServer?.on("connection", (websocket, request) => {
-      logger.info("client connected");
-      websocket.on("message", this.onMessage);
-      websocket.on("close", this.onClose);
-      websocket.on("error", this.onError);
+      const isAgentConnection = request?.url?.includes("agent-report") || false;
+
+      if (!isAgentConnection) {
+        const ip = request?.socket?.remoteAddress || "unknown";
+        logger.warn(`rejected connection to: [${request?.url}] from: [${ip}]`);
+        websocket.close(1008, "invalid path");
+      } else {
+        const path = request.url?.split("/") || "unknown";
+        const agentName = path[path.length - 1];
+        logger.info(`agent [${agentName}] connected`);
+
+        websocket.on("message", this.onMessage);
+        websocket.on("close", this.onClose);
+        websocket.on("error", this.onError);
+      }
     });
   }
 
-  onMessage(message: string | Buffer | Buffer[] | ArrayBuffer) {}
+  onMessage(message: string | Buffer | Buffer[] | ArrayBuffer) {
+    logger.alert(message);
+  }
 
   onError(error: Error) {}
 
