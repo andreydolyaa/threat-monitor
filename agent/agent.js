@@ -21,4 +21,3 @@ const ws = new WebSocket(URL);
 ws.on("open", () => {
   console.log("agent connected to server:", URL);
 });
-
