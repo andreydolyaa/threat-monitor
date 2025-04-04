@@ -1,6 +1,10 @@
 import { type Server } from "http";
 import { WebSocket, WebSocketServer } from "ws";
 import logger from "./logger.ts";
+import { websocketMessageType } from "../constants/index.ts";
+import { agentUpsert } from "../controllers/agent-controller.ts";
+
+type WebsocketMessage = string | Buffer | Buffer[] | ArrayBuffer;
 
 export class WsServer {
   httpServer: Server;
@@ -19,26 +23,31 @@ export class WsServer {
 
   initListeners() {
     this.wsServer?.on("connection", (websocket, request) => {
-      const isAgentConnection = request?.url?.includes("agent-report") || false;
+      // const isAgentConnection = request?.url?.includes("agent-report") || false;
 
-      if (!isAgentConnection) {
-        const ip = request?.socket?.remoteAddress || "unknown";
-        logger.warn(`rejected connection to: [${request?.url}] from: [${ip}]`);
-        websocket.close(1008, "invalid path");
-      } else {
-        const path = request.url?.split("/") || "unknown";
-        const agentName = path[path.length - 1];
-        logger.info(`agent [${agentName}] connected`);
+      // if (!isAgentConnection) {
+      //   const ip = request?.socket?.remoteAddress || "unknown";
+      //   logger.warn(`rejected connection to: [${request?.url}] from: [${ip}]`);
+      //   websocket.close(1008, "invalid path");
+      // } else {
+      //   const path = request.url?.split("/") || "unknown";
+      //   const agentName = path[path.length - 1];
+      //   logger.info(`agent [${agentName}] connected`);
 
-        websocket.on("message", this.onMessage);
-        websocket.on("close", this.onClose);
-        websocket.on("error", this.onError);
-      }
+      // }
+      websocket.on("message", this.onMessage);
+      websocket.on("close", this.onClose);
+      websocket.on("error", this.onError);
     });
   }
 
-  onMessage(message: string | Buffer | Buffer[] | ArrayBuffer) {
-    logger.warn(message ? JSON.parse(message) : "");
+  onMessage(message: WebsocketMessage) {
+    const data = message ? JSON.parse(message as string) : "";
+
+    // create message distributor outside
+    if (data.type === websocketMessageType.AGENT_INFO) {
+      return agentUpsert(data);
+    }
   }
 
   onError(error: Error) {}
