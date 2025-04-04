@@ -38,7 +38,7 @@ export class WsServer {
   }
 
   onMessage(message: string | Buffer | Buffer[] | ArrayBuffer) {
-    logger.alert(message);
+    logger.warn(message ? JSON.parse(message) : "");
   }
 
   onError(error: Error) {}
