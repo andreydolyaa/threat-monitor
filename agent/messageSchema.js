@@ -1,16 +1,14 @@
 export class MessageSchema {
   constructor() {}
 
-  static create(log, path) {
+  static create(source, path, log) {
     return {
       agentName: process.env.AGENT_NAME,
-      reportPath: process.env.REPORT_PATH,
-      serverIp: process.env.SERVER_IP,
-      serverPort: process.env.SERVER_PORT,
-      watchPath: path,
-      time: "",
+      source,
+      path,
+      timestamp: new Date().toISOString(),
       data: {
-        log,
+        logLine: log,
       },
     };
   }

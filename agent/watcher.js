@@ -3,8 +3,10 @@ import readline from "readline";
 import { MessageSchema } from "./messageSchema.js";
 
 export class Watcher {
-  constructor(filePath) {
+  constructor(filePath, source, ws) {
     this.filePath = filePath;
+    this.source = source;
+    this.ws = ws;
     this.readInterval = parseInt(process.env.REPORT_INTERVAL);
   }
 
@@ -26,8 +28,12 @@ export class Watcher {
     const rl = readline.createInterface({ input: stream });
     rl.on("line", (line) => {
       const clearLine = line.replace(/\s+/g, " ");
-      const message = MessageSchema.create(clearLine, this.filePath);
-      console.log(message);
+      const message = MessageSchema.create(
+        this.source,
+        this.filePath,
+        clearLine
+      );
+      this.ws.send(JSON.stringify(message));
     });
   }
 }

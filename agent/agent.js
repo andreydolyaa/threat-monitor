@@ -25,7 +25,12 @@ ws.on("open", () => {
 
 ws.on("error", (err) => console.error("webSocket error:", err));
 
-// Test
-const testLogFile = "/var/log/auth.log";
-const authLogsWatcher = new Watcher(testLogFile);
+// Auth logs
+const authLogFile = "/var/log/auth.log";
+const authLogsWatcher = new Watcher(authLogFile, "auth", ws);
 authLogsWatcher.watch();
+
+// Syslogs
+const syslogFile = "/var/log/syslog";
+const syslogsWatcher = new Watcher(syslogFile, "syslog", ws);
+syslogsWatcher.watch();
