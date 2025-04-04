@@ -1,4 +1,5 @@
 import fs from "fs";
+import { spawn } from "child_process";
 import readline from "readline";
 import { MessageSchema } from "./messageSchema.js";
 
@@ -10,7 +11,7 @@ export class Watcher {
     this.readInterval = parseInt(process.env.REPORT_INTERVAL);
   }
 
-  watch() {
+  watchFullLog() {
     fs.watchFile(this.filePath, { interval: this.readInterval }, () => {
       const stream = this.createStream();
       this.readFile(stream);
@@ -33,7 +34,33 @@ export class Watcher {
         this.filePath,
         clearLine
       );
-      this.ws.send(JSON.stringify(message));
+      this.send(message);
     });
+  }
+
+  watch() {
+    const tail = spawn("tail", ["-n", 0, "-F", this.filePath]);
+
+    tail.stdout.on("data", (data) => {
+      const rawMessage = data.toString().trim().split("\n");
+      const message = MessageSchema.create(
+        this.source,
+        this.filePath,
+        rawMessage
+      );
+      this.send(message);
+    });
+
+    tail.stderr.on("data", (data) => {
+      console.error(`Error: ${data}`);
+    });
+
+    tail.on("close", (code) => {
+      console.log(`tail process exited with code ${code}`);
+    });
+  }
+
+  send(data) {
+    this.ws.send(JSON.stringify(data));
   }
 }
