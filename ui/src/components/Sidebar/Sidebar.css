@@ -1,0 +1,9 @@
+.sidebar {
+  grid-area: sidebar;
+  width: 250px;
+  transition: 0.2s;
+  border-right: 1px solid var(--border-color);
+  @media (max-width: 1024px) {
+    width: 70px;
+  }
+}
