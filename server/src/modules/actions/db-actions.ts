@@ -1,7 +1,30 @@
+import type { Request } from "express";
 import { type Model, type Document } from "mongoose";
 import logger from "../../core/logger.ts";
 import type { DbActionFilter } from "../../types/index.ts";
 import { strObj } from "../../utils/index.ts";
+
+// TODO: pagination
+export async function get<T>(model: Model<T>) {
+  try {
+    const data = await model.find({});
+    logger.info(`DB | GET req [${strObj(data)}]`);
+    return data;
+  } catch (error) {
+    logger.error(`DB | error during GET req`);
+  }
+}
+
+export async function del<T>(model: Model<T>, req: Request) {
+  try {
+    const data = await model.findOneAndDelete({ _id: req.params.id });
+    logger.info(`DB | DEL req [${strObj(data)}]`);
+    return data;
+  } catch (error) {
+    logger.error(`DB | error during DEL req ${error}`);
+    throw error;
+  }
+}
 
 export async function upsert<T>(
   model: Model<T>,

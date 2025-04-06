@@ -20,12 +20,14 @@ export class Server {
     this.port = options.port;
     this.router = options.router;
     this.server = http.createServer(this.app);
+    this.init();
   }
 
   init() {
     this.app.use(express.json());
     this.app.use(cors());
     this.app.use(this.router);
+    
   }
 
   start() {

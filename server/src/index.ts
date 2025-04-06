@@ -3,7 +3,7 @@ import { Server } from "./core/server.ts";
 import { Agent } from "./models/agent-model.ts";
 import { Log } from "./models/log-model.ts";
 import { deleteDocumentsIfExceedsLimit } from "./modules/actions/db-actions.ts";
-import router from "./routes/index.ts";
+import router from "./router.ts";
 
 if (!process.env.SERVER_PORT) {
   throw new Error("SERVER_PORT env var is missing");
