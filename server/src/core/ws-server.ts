@@ -1,10 +1,8 @@
 import { type Server } from "http";
-import { WebSocket, WebSocketServer } from "ws";
+import { WebSocketServer } from "ws";
 import logger from "./logger.ts";
-import { websocketMessageType } from "../constants/index.ts";
-import { agentUpsert } from "../controllers/agent-controller.ts";
-
-type WebsocketMessage = string | Buffer | Buffer[] | ArrayBuffer;
+import type { WebsocketMessage } from "../types/index.ts";
+import { dispatchMessageByType } from "../modules/dispatcher/index.ts";
 
 export class WsServer {
   httpServer: Server;
@@ -23,36 +21,24 @@ export class WsServer {
 
   initListeners() {
     this.wsServer?.on("connection", (websocket, request) => {
-      // const isAgentConnection = request?.url?.includes("agent-report") || false;
-
-      // if (!isAgentConnection) {
-      //   const ip = request?.socket?.remoteAddress || "unknown";
-      //   logger.warn(`rejected connection to: [${request?.url}] from: [${ip}]`);
-      //   websocket.close(1008, "invalid path");
-      // } else {
-      //   const path = request.url?.split("/") || "unknown";
-      //   const agentName = path[path.length - 1];
-      //   logger.info(`agent [${agentName}] connected`);
-
-      // }
+      const agentName = request.url?.split("/").pop() || "";
+      logger.info(`agent connected [${agentName}]`);
       websocket.on("message", this.onMessage);
-      websocket.on("close", this.onClose);
+      websocket.on("close", (code, reason) =>
+        this.onClose(code, reason, agentName)
+      );
       websocket.on("error", this.onError);
     });
   }
 
   onMessage(message: WebsocketMessage) {
-    const data = message ? JSON.parse(message as string) : "";
-
-    // create message distributor outside
-    if (data.type === websocketMessageType.AGENT_INFO) {
-      return agentUpsert(data);
-    }
+    dispatchMessageByType(message);
   }
 
   onError(error: Error) {}
 
-  onClose(code: number, reason: string | Buffer) {
-    logger.info("client disconnected");
+  onClose(code: number, reason: string | Buffer, agentName: string) {
+    const msg = `agent disconnected [${agentName}] [code:${code}] [reason:${reason}]`;
+    logger.warn(msg);
   }
 }

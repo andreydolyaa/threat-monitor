@@ -1,4 +1,9 @@
-export const websocketMessageType = {
-  AGENT_INFO: "agent_info",
-  LOG_INFO: "log_info"
+export const WEBSOCKET_MESSAGE_TYPE = {
+  AGENT_INFO: "AGENT_INFO",
+  LOG_INFO: "LOG_INFO"
+}
+
+export const AGENT_STATUS = {
+  ONLINE: "ONLINE",
+  OFFLINE: "OFFLINE"
 }

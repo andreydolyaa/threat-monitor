@@ -9,11 +9,12 @@ const AgentSchema = new mongoose.Schema(
     agentName: {
       type: String,
       required: true,
+      unique: true
     },
     status: {
       type: String,
       required: true,
-      enum: ["online", "offline"],
+      enum: ["ONLINE", "OFFLINE"],
     },
     hostIp: {
       type: String,
