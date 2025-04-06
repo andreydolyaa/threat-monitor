@@ -3,12 +3,13 @@ export class MessageSchema {
 
   static create(source, path, log) {
     return {
+      type: "LOG_INFO",
       agentName: process.env.AGENT_NAME,
       source,
       path,
       timestamp: new Date().toISOString(),
       data: {
-        logLine: log,
+        raw: log,
       },
     };
   }

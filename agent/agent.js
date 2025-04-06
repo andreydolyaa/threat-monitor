@@ -15,11 +15,12 @@ if (
   throw new Error("cannot start: missing environment variables");
 }
 
-const URL = `${SERVER_PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/${REPORT_PATH}/${AGENT_NAME}`;
+const URL = `${SERVER_PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/ws/agent/${AGENT_NAME}`; 
 const ws = new WebSocket(URL);
 
 const TYPES = {
   AGENT_INFO: "AGENT_INFO",
+  LOG_INFO: "LOG_INFO"
 };
 
 const AGENT_STATUS = {

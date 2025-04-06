@@ -42,7 +42,7 @@ export class Watcher {
     const tail = spawn("tail", ["-n", 0, "-F", this.filePath]);
 
     tail.stdout.on("data", (data) => {
-      const rawMessage = data.toString().trim().split("\n");
+      const rawMessage = data.toString().trim();
       const message = MessageSchema.create(
         this.source,
         this.filePath,
