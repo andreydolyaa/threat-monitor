@@ -20,3 +20,30 @@ export async function upsert<T>(
     );
   }
 }
+
+export async function create<T>(model: Model<T>, data: Partial<T>) {
+  try {
+    const document = await model.create({ ...data });
+    logger.info(`DB | document created [${strObj(data)}]`);
+    return document;
+  } catch (error) {
+    logger.error(`DB | document creation failed[${strObj(error)}]`);
+  }
+}
+
+export async function deleteDocumentsIfExceedsLimit<T>(model: Model<T>) {
+  const maxLogs = parseInt(process.env.LOGS_MAX_COUNT || "50000");
+  const keepCount = parseInt(process.env.LOGS_KEEP_COUNT || "40000");
+  const docCount = await model.countDocuments();
+
+  if (docCount > maxLogs) {
+    const deleteCount = docCount - keepCount; // keep <keepCount> docs, delete the rest
+    const docsToDelete = await model.find().sort({ _id: 1 }).limit(deleteCount);
+    await model.deleteMany({
+      _id: { $in: docsToDelete.map((doc) => doc._id) },
+    });
+    logger.warn(`${deleteCount} documents deleted`);
+  } else {
+    logger.info("document count is under the limit, no deletion performed.");
+  }
+}

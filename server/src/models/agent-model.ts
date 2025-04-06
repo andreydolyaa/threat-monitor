@@ -5,11 +5,13 @@ const AgentSchema = new mongoose.Schema(
     type: {
       type: String,
       required: true,
+      index: true,
     },
     agentName: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
+      index: true,
     },
     status: {
       type: String,
@@ -19,6 +21,7 @@ const AgentSchema = new mongoose.Schema(
     hostIp: {
       type: String,
       required: true,
+      index: true,
     },
   },
   {

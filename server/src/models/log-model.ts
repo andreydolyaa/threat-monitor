@@ -5,18 +5,24 @@ const LogsSchema = new mongoose.Schema(
     agentName: {
       required: true,
       type: String,
+      index: true
     },
     source: {
       required: true,
       type: String,
+      index: true
     },
     path: {
       required: true,
       type: String,
+      index: true
     },
-    timestamp: Date,
+    timestamp: {
+      type: Date,
+      index: true
+    },
     data: {
-      logLine: [String],
+      raw: String,
     },
   },
   {
