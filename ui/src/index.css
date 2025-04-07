@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');* {
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -13,9 +15,9 @@
   --font-color-primary: #ffffff;
   --font-color-secondary: #7f89a2;
   --font-color-sidebar: rgb(174, 185, 225);
-  --font-color-active: rgb(147, 83, 248);;
+  --font-color-active: rgb(147, 83, 248);
   --button-color: #6c72fe;
-  --border-color: #333B4E;
+  --border-color: #333b4e;
 }
 
 #root,
@@ -24,6 +26,14 @@ body {
   height: 100%;
   width: 100%;
   background-color: var(--main-background);
-
   color: var(--font-color-primary);
+}
+
+@keyframes sidebar-appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

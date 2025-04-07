@@ -41,7 +41,7 @@ const Sidebar = () => {
   const sectionItem = (section: SidebarSectionItem) => {
     return (
       <div key={section.title}>
-        {!isCollapsed && <SidebarTitle title={section.title} />}
+        <SidebarTitle title={section.title} />
         {section.items.map((item: SidebarItemType) => {
           return sidebarItem(item);
         })}
@@ -61,7 +61,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar" style={{ width: isCollapsed ? "70px" : "300px" }}>
+    <div className={`sidebar ${!isCollapsed ? "sidebar-appear" : ""}`}>
       <Logo />
       <div className="items">
         {sections.map((section) => sectionItem(section))}

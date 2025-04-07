@@ -10,15 +10,12 @@ const Logo = () => {
     <div className="logo">
       <div className="logo-and-text">
         <TbShieldHalf
-          className={`logo-icon ${isCollapsed ? "collapsed" : ""}`}
+          className="logo-icon"
           onClick={() => isCollapsed && toggleSidebar()}
         />
-
-        {!isCollapsed && <div>Threat Monitor</div>}
+        <div className="title">Threat Monitor</div>
       </div>
-      {!isCollapsed && (
-        <TbSelector className="sidebar-toggler" onClick={toggleSidebar} />
-      )}
+      <TbSelector className="sidebar-toggler" onClick={toggleSidebar} />
     </div>
   );
 };

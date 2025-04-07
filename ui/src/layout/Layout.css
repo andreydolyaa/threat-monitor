@@ -1,7 +1,7 @@
 .layout {
   height: 100%;
   width: 100%;
-  transition: .2s;
+  transition: 0.2s;
   display: grid;
   grid-template-columns: 300px 2fr;
   grid-template-rows: 60px 1fr;
@@ -11,7 +11,78 @@
   .main {
     grid-area: main;
   }
-  @media(max-width:1024px) {
+  @media (max-width: 1024px) {
     grid-template-columns: 70px 1fr;
+    .sidebar {
+      width: 70px;
+      .logo {
+        .title {
+          display: none;
+        }
+        .logo-icon {
+          font-size: 28px;
+          cursor: pointer;
+          margin: 0;
+        }
+      }
+      .sidebar-title {
+        display: none;
+      }
+      .sidebar-item {
+        padding: 0;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        .item-title {
+          display: none;
+        }
+        .icon-component {
+          font-size: 24px;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.sidebar-appear {
+  animation: sidebar-appear .5s ease 1;
+}
+
+/* applied in Layout.tsx when isCollapsed true */
+.collapsed {
+  grid-template-columns: 70px 1fr;
+  .sidebar {
+    width: 70px;
+    .logo {
+      .title {
+        display: none;
+      }
+      .logo-icon {
+        font-size: 28px;
+        cursor: pointer;
+        margin: 0;
+      }
+    }
+    .sidebar-title {
+      display: none;
+    }
+    .sidebar-item {
+      padding: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      .item-title {
+        display: none;
+      }
+      .icon-component {
+        font-size: 24px;
+        margin: 0;
+      }
+    }
   }
 }

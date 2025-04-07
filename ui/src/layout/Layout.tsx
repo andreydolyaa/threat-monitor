@@ -2,18 +2,14 @@ import "./Layout.css";
 import { Sidebar } from "../components/Sidebar";
 import { Topbar } from "../components/Topbar";
 import { Outlet } from "react-router";
-import { useState } from "react";
+import { useStore } from "../store/useStore";
 
 const Layout = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const toggleSidebar = () => {
-    setIsCollapsed((prev) => !prev);
-  };
+  const isCollapsed = useStore((state) => state.isSidebarCollapsed);
+  
   return (
-    <div
-      className="layout"
-      style={{ gridTemplateColumns: isCollapsed ? "70px 1fr" : "300px 1fr" }}>
-      <Sidebar toggleSidebar={toggleSidebar} isCollapsed={isCollapsed} />
+    <div className={`layout ${isCollapsed ? "collapsed" : ""}`}>
+      <Sidebar />
       <Topbar />
       <div className="main">
         <Outlet />
