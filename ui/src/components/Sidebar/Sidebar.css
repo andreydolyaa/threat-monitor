@@ -21,6 +21,8 @@
   }
 
   .sidebar-title {
+    display: flex;
+    align-items: center;
     font-size: 11px;
     text-transform: uppercase;
     padding: 30px 20px;

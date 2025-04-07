@@ -10,6 +10,7 @@
     align-items: center;
     .logo-icon {
       color: rgb(124, 83, 191);
+      cursor: pointer;
     }
   }
   .sidebar-toggler {
