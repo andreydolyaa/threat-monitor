@@ -12,6 +12,8 @@
   --card-background: #101935;
   --font-color-primary: #ffffff;
   --font-color-secondary: #7f89a2;
+  --font-color-sidebar: rgb(174, 185, 225);
+  --font-color-active: rgb(147, 83, 248);;
   --button-color: #6c72fe;
   --border-color: #333B4E;
 }

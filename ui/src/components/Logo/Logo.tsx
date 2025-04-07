@@ -1,14 +1,16 @@
 import "./Logo.css";
-import { type ToggleSidebar } from "../../types";
+import { useStore } from "../../store/useStore";
 import { TbShieldHalf, TbSelector } from "react-icons/tb";
 
-const Logo = ({ toggleSidebar, isCollapsed }: ToggleSidebar) => {
+const Logo = () => {
+  const isCollapsed = useStore((state) => state.isSidebarCollapsed);
+  const toggleSidebar = useStore((state) => state.toggleSidebar);
+
   return (
     <div className="logo">
       <div className="logo-and-text">
         <TbShieldHalf
-          className="logo-icon"
-          style={{ strokeWidth: 2, fontSize: 24, marginRight: 7 }}
+          className={`logo-icon ${isCollapsed ? "collapsed" : ""}`}
           onClick={() => isCollapsed && toggleSidebar()}
         />
 

@@ -1,23 +1,21 @@
 import { NavLink } from "react-router";
-import { type IconType } from "react-icons";
-import { TbChevronRight } from "react-icons/tb";
-import { Icon } from "../Icon";
+import { useStore } from "../../store/useStore";
+import { type SidebarItemType } from "../../types";
 
-type SidebarItem = {
-  title: string;
-  icon: IconType;
-  link: string;
-};
+const SidebarItem = ({ title, icon, link }: SidebarItemType) => {
+  const isCollapsed = useStore((state) => state.isSidebarCollapsed);
 
-const SidebarItem = ({ title, icon, link }: SidebarItem) => {
   const IconComponent = icon;
   return (
-    <NavLink className="sidebar-item" to={link}>
-      <IconComponent style={{ strokeWidth: 1.5, fontSize: 18, marginRight: 7 }} />
-      <div>{title}</div>
-      <TbChevronRight
-        style={{ strokeWidth: 1.5, fontSize: 18, marginLeft: "auto" }}
-      />
+    <NavLink
+      className={({ isActive }) =>
+        `sidebar-item ${isActive ? "active" : ""} ${
+          isCollapsed ? "sidebar-collapsed" : ""
+        }`
+      }
+      to={link}>
+      <IconComponent className="icon-component" />
+      {!isCollapsed && <div>{title}</div>}
     </NavLink>
   );
 };

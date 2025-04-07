@@ -9,8 +9,17 @@
     display: flex;
     align-items: center;
     .logo-icon {
-      color: rgb(124, 83, 191);
-      cursor: pointer;
+      display: flex;
+      align-items: center;
+      color: rgb(234, 175, 35);
+      font-size: 24px;
+      margin-right: 7px;
+      stroke-width: 2;
+      &.collapsed {
+        cursor: pointer;
+        font-size: 30px;;
+        margin:0;
+      }
     }
   }
   .sidebar-toggler {
