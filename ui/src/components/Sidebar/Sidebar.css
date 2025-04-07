@@ -1,9 +1,31 @@
 .sidebar {
   grid-area: sidebar;
-  width: 250px;
+  width: 300px;
   transition: 0.2s;
   border-right: 1px solid var(--border-color);
   @media (max-width: 1024px) {
     width: 70px;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    color: rgb(174, 185, 225);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 15px 20px;
+    transition: .2s;
+    &:hover {
+      color: white;
+    }
+  }
+
+  .sidebar-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 30px 20px;
+    color: var(--font-color-secondary);
+    font-weight: 300;
+    letter-spacing: .5px;
   }
 }

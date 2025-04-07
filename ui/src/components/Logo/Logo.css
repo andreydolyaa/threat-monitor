@@ -1,0 +1,23 @@
+.logo {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 40px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  .logo-and-text {
+    display: flex;
+    align-items: center;
+    .logo-icon {
+      color: rgb(124, 83, 191);
+    }
+  }
+  .sidebar-toggler {
+    transform: rotate(90deg);
+    margin-left: auto;
+    stroke-width: 1.2;
+    font-size: 18px;
+    color: rgb(177, 177, 177);
+    cursor: pointer;
+  }
+}

@@ -6,7 +6,7 @@ type TIcon = {
 
 const Icon = ({ icon }: TIcon) => {
   const IconComponent = icon;
-  return <IconComponent />;
+  return <IconComponent style={{ strokeWidth: 1.5 }} />;
 };
 
 export default Icon;
