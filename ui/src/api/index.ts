@@ -7,19 +7,13 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    // const token = JSON.parse(
-    //   localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN_NAME)
-    // );
-    const token = "";
-
+    const token = localStorage.getItem(import.meta.env.VITE_TOKEN_KEY);
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default axiosInstance;
