@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import JWT from "jsonwebtoken";
 import { type Request, type Response } from "express";
 import { User } from "../models/user-model.ts";
 import { create, upsert } from "../modules/actions/db-actions.ts";
@@ -18,7 +19,13 @@ export const login = async (req: Request, res: Response) => {
 
     if (isMatch) {
       const loggedUser = await upsert(User, { email }, { isLoggedIn: true });
-      res.status(200).json({ message: "login successful", loggedUser });
+      const { password, ...userWithoutPassword } = loggedUser ?? {};
+      const token = JWT.sign({ userWithoutPassword }, process.env.JWT_SECRET!, {
+        expiresIn: "30d",
+      });
+      res
+        .status(200)
+        .json({ message: "login successful", userWithoutPassword, token });
     } else {
       res.status(400).json({ message: "wrong user credentials" });
     }
@@ -27,11 +34,20 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-// TODO: logout by jwt
 export const logout = async (req: Request, res: Response) => {
   const { username, email } = req.body;
+  console.log(username, "@@@");
+  console.log(email, "@@@");
+
+  // TODO: fix findoneandupdate
   try {
-    await User.findOneAndUpdate({ username, email }, { isLoggedIn: false });
+    const user = await User.findOneAndUpdate(
+      { username },
+      { isLoggedIn: false },
+      { new: true }
+    );
+    console.log(user, "$$$$$$$$$$$");
+
     res.status(200).json({ message: "user logged out" });
   } catch (error) {
     res.status(400).json({ message: "logout failed", error });
