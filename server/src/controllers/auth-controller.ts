@@ -20,12 +20,18 @@ export const login = async (req: Request, res: Response) => {
     if (isMatch) {
       const loggedUser = await upsert(User, { email }, { isLoggedIn: true });
       const { password, ...userWithoutPassword } = loggedUser ?? {};
-      const token = JWT.sign({ userWithoutPassword }, process.env.JWT_SECRET!, {
-        expiresIn: "30d",
+      const token = JWT.sign(
+        { user: userWithoutPassword },
+        process.env.JWT_SECRET!,
+        {
+          expiresIn: "30d",
+        }
+      );
+      res.status(200).json({
+        message: "login successful",
+        user: userWithoutPassword,
+        token,
       });
-      res
-        .status(200)
-        .json({ message: "login successful", userWithoutPassword, token });
     } else {
       res.status(400).json({ message: "wrong user credentials" });
     }

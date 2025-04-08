@@ -1,25 +1,23 @@
-import type { NextFunction, Request, Response } from "express";
-import JWT from "jsonwebtoken";
+import JWT, { type JwtPayload } from "jsonwebtoken";
+import type { NextFunction, Response, Request } from "express";
+import type { AuthenticatedRequest, TUser } from "../types";
 
-type ExpressMiddleware = (
-  req: Request,
+export const verifyToken = (
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
-) => void;
-
-export const verifyToken: ExpressMiddleware = (req, res, next) => {
+) => {
   const token = req.headers["authorization"];
 
   if (!token) {
-    return res
-      .status(403)
-      .send({ message: "access denied: no token provided" });
+    res.status(403).send({ message: "access denied: no token provided" });
+    return;
   }
 
   try {
     const raw = token?.startsWith("Bearer ") ? token.slice(7) : token;
-    const decoded = JWT.verify(raw, process.env.JWT_SECRET!);
-    // req.user = decoded
+    const decoded = JWT.verify(raw, process.env.JWT_SECRET!) as Record<string, TUser>;
+    req.user = decoded.user;
     next();
   } catch (error) {
     res.status(401).send({ message: "invalid or expired token" });

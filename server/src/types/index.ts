@@ -1,3 +1,5 @@
+import { type Request } from "express";
+import { type JwtPayload } from "jsonwebtoken";
 import { Types } from "mongoose";
 
 export type TAgent = {
@@ -24,6 +26,10 @@ export type TUser = {
   email: string;
   password: string;
 };
+
+export interface AuthenticatedRequest extends Request {
+  user?: TUser;
+}
 
 export type WebsocketMessage = string | Buffer | Buffer[] | ArrayBuffer;
 
