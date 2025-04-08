@@ -12,6 +12,7 @@ export async function get<T>(model: Model<T>) {
     return data;
   } catch (error) {
     logger.error(`DB | error during GET req`);
+    throw error;
   }
 }
 
@@ -41,6 +42,7 @@ export async function upsert<T>(
     logger.error(
       `DB | document upsert failed [${strObj(filter)}] [${strObj(error)}]`
     );
+    throw error;
   }
 }
 
@@ -51,6 +53,7 @@ export async function create<T>(model: Model<T>, data: Partial<T>) {
     return document;
   } catch (error) {
     logger.error(`DB | document creation failed[${strObj(error)}]`);
+    throw error;
   }
 }
 

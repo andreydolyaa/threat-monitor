@@ -36,19 +36,17 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
   const { username, email } = req.body;
-  console.log(username, "@@@");
-  console.log(email, "@@@");
 
-  // TODO: fix findoneandupdate
   try {
     const user = await User.findOneAndUpdate(
-      { username },
+      { email, username },
       { isLoggedIn: false },
       { new: true }
     );
-    console.log(user, "$$$$$$$$$$$");
 
-    res.status(200).json({ message: "user logged out" });
+    if (!user || !user.isLoggedIn)
+      res.status(400).json({ message: "user not found" });
+    else res.status(200).json({ message: "user logged out" });
   } catch (error) {
     res.status(400).json({ message: "logout failed", error });
   }
@@ -59,7 +57,7 @@ export const register = async (req: Request, res: Response) => {
   try {
     const hashed = await bcrypt.hash(password, 10);
     const user = await create(User, { username, email, password: hashed });
-    res.status(200).json({ message: "user created", user });
+    res.status(200).json({ message: "user created" });
   } catch (error) {
     res.status(400).send({ message: "failed to create user", error });
   }
