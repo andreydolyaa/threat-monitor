@@ -18,6 +18,13 @@ export type TLog = {
   data: { raw: string };
 };
 
+export type TUser = {
+  _id?: Types.ObjectId;
+  username: string;
+  email: string;
+  password: string;
+};
+
 export type WebsocketMessage = string | Buffer | Buffer[] | ArrayBuffer;
 
 export type DbActionFilter = Record<string, unknown>;
