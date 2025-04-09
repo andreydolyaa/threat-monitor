@@ -15,6 +15,7 @@ import {
 
 const Sidebar = () => {
   const isCollapsed = useStore((state) => state.isSidebarCollapsed);
+  const logout = useStore((state) => state.logout);
 
   const sections = [
     {
@@ -33,7 +34,7 @@ const Sidebar = () => {
       title: "System & Settings",
       items: [
         { title: "Settings", icon: TbSettings, link: "/settings" },
-        { title: "Logout", icon: TbLogout, link: "/logout" },
+        { title: "Logout", icon: TbLogout, link: "/logout", action: logout },
       ],
     },
   ];
@@ -56,6 +57,7 @@ const Sidebar = () => {
         title={item.title}
         icon={item.icon}
         link={item.link}
+        action={item.action}
       />
     );
   };

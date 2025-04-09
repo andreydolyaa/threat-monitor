@@ -3,7 +3,7 @@ import JWT from "jsonwebtoken";
 import { type Request, type Response } from "express";
 import { User } from "../models/user-model.ts";
 import { create, upsert } from "../modules/actions/db-actions.ts";
-import type { TUser } from "../types/index.ts";
+import type { AuthenticatedRequest, TUser } from "../types/index.ts";
 
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -40,19 +40,21 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const logout = async (req: Request, res: Response) => {
-  const { username, email } = req.body;
+export const logout = async (req: AuthenticatedRequest, res: Response) => {
+  const { username, email } = req.user!;
 
   try {
     const user = await User.findOneAndUpdate(
       { email, username },
       { isLoggedIn: false },
       { new: true }
-    );
+    ).lean();
 
-    if (!user || !user.isLoggedIn)
-      res.status(400).json({ message: "user not found" });
-    else res.status(200).json({ message: "user logged out" });
+    if (!user) res.status(400).json({ message: "user not found" });
+    else {
+      delete req.user 
+      res.status(200).json({ message: "user logged out" });
+    }
   } catch (error) {
     res.status(400).json({ message: "logout failed", error });
   }

@@ -9,6 +9,7 @@ export type SidebarItemType = {
   title: string;
   icon: IconType;
   link: string;
+  action?: () => void;
 };
 
 export type SidebarSectionItem = {
@@ -40,4 +41,5 @@ export type UserState = {
   error: string | null;
   fetchUser: () => Promise<void>;
   login: (data: LoginData) => Promise<void>;
+  logout: () => Promise<void>;
 };

@@ -1,4 +1,4 @@
-import { fetchUser, login } from "../api/api";
+import { fetchUser, login, logout } from "../api/api";
 import { type LoginData, type UserState } from "../types";
 
 export const createUserSlice = (set: any): UserState => ({
@@ -22,8 +22,17 @@ export const createUserSlice = (set: any): UserState => ({
     try {
       const response = await fetchUser();
       set({ user: response.user, loading: false });
-      console.log(response, "@#@#@#@#@#@#@#@");
-      
+    } catch (error) {
+      set({ error: (error as Error).message, loading: false });
+    }
+  },
+
+  logout: async () => {
+    set({ loading: true, error: null });
+    try {
+      await logout();
+      set({ user: null, loading: false });
+      localStorage.removeItem(import.meta.env.VITE_TOKEN_KEY);
     } catch (error) {
       set({ error: (error as Error).message, loading: false });
     }
