@@ -1,16 +1,37 @@
 .login {
-  border:1px solid red;
+  animation: appear .2s ease 1;
   background-color: var(--card-background);
   width: 360px;
-  height: 440px;
-  border:1px solid var(--border-color);
-  border-radius: 5px;
+  height: 420px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
   padding: 20px;
-  input, button {
-    margin-top:30px;
+  box-shadow: var(--box-shadow);
+  button {
+    font-size: 15px;
+  }
+  input,
+  button {
+    margin-top: 30px;
   }
   .logo {
     justify-content: center;
+    font-size: 22px;
+    .logo-and-text {
+      .logo-icon {
+        font-size: 34px;
+      }
+    }
   }
+}
 
+@keyframes appear {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }

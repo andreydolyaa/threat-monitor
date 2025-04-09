@@ -15,12 +15,15 @@
   --font-color-primary: #ffffff;
   --font-color-secondary: #7f89a2;
   --font-color-sidebar: rgb(174, 185, 225);
-  --font-color-active: rgb(147, 83, 248);
-  --button-color-primary: #6C72FE;
-  --button-color-primary-hover: #575df9;
-  --button-color-secondary: #212C4D;
+  /* --font-color-active: rgb(255, 54, 134); */
+  --font-color-active: rgb(244, 168, 25);
+  --button-color-primary: #792dca;
+  --button-color-secondary: #212c4d;
+  --button-color-primary-hover: #6022a3;
   --border-color: #333b4e;
-  --border-radius: 5px;
+  /* --border-color: #262d3c; */
+  --border-radius: 4px;
+  --box-shadow: 1px 1px 30px #040a17;
 }
 
 #root,

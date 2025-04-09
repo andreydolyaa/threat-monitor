@@ -1,7 +1,7 @@
 .custom-input {
   width: 100%;
   padding: 12px;
-  background-color: transparent;
+  background-color: var(--main-background);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   color: var(--font-color-primary);
