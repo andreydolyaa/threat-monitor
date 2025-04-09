@@ -9,15 +9,18 @@
 :root {
   font-family: "Mona Sans", "Courier New", Courier, monospace;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 12px;
   --main-background: #071025;
   --card-background: #101935;
   --font-color-primary: #ffffff;
   --font-color-secondary: #7f89a2;
   --font-color-sidebar: rgb(174, 185, 225);
   --font-color-active: rgb(147, 83, 248);
-  --button-color: #6c72fe;
+  --button-color-primary: #6C72FE;
+  --button-color-primary-hover: #575df9;
+  --button-color-secondary: #212C4D;
   --border-color: #333b4e;
+  --border-radius: 5px;
 }
 
 #root,
@@ -25,6 +28,8 @@
 body {
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
   background-color: var(--main-background);
   color: var(--font-color-primary);
 }

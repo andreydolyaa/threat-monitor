@@ -1,0 +1,13 @@
+.custom-input {
+  width: 100%;
+  padding: 12px;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--font-color-primary);
+  outline: none;
+}
+
+.custom-input::placeholder {
+  color: rgb(54, 70, 92);
+}

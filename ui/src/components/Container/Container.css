@@ -1,0 +1,12 @@
+.container {
+  height: 100%;
+  width: 100%;
+  max-width: 1400px;
+  padding: 36px;
+}
+
+.container.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
