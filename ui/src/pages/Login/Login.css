@@ -1,21 +1,27 @@
 .login {
-  animation: appear .2s ease 1;
-  background-color: var(--card-background);
-  width: 360px;
-  height: 420px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: 20px;
-  box-shadow: var(--box-shadow);
+  animation: appear 0.2s ease 1;
+  width: 380px;
+  height: 480px;
+  padding: 36px;
   button {
     font-size: 15px;
-  }
-  input,
-  button {
     margin-top: 30px;
+    background: rgb(69, 19, 201);
+    background: linear-gradient(
+      149deg,
+      rgba(69, 19, 201, 1) 30%,
+      rgba(103, 65, 208, 1) 100%
+    );
+    box-shadow: 1px 1px 2px 1px rgb(50, 2, 113);
+  }
+  label {
+    color: var(--font-color-secondary);
+    font-size: 14px;
+    display: block;
+    margin: 24px 0 10px 0;
   }
   .logo {
-    justify-content: center;
+    padding: 0;
     font-size: 22px;
     .logo-and-text {
       .logo-icon {

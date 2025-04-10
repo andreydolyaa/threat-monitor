@@ -24,22 +24,23 @@ export const Login = () => {
     <Container center={true}>
       <form className="login" onSubmit={handleSubmit}>
         <Logo isInLogin={true} />
+        <label>Email</label>
         <CustomInput
           type="email"
           name="email"
           required
-          placeholder="Email"
+          inputColor="var(--card-background)"
           handleOnChange={handleOnChange}
         />
+        <label>Password</label>
         <CustomInput
           type="password"
           name="password"
           required
-          placeholder="Password"
+          inputColor="var(--card-background)"
           handleOnChange={handleOnChange}
         />
-        {/* <button type="submit">Login</button> */}
-        <CustomButton type="submit" text="Login"/>
+        <CustomButton type="submit" text="LOGIN" />
       </form>
     </Container>
   );

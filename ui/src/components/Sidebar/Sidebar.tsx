@@ -5,12 +5,13 @@ import SidebarItem from "./SidebarItem";
 import SidebarTitle from "./SidebarTitle";
 import { useStore } from "../../store/useStore";
 import {
-  TbChartPie,
-  TbUrgent,
-  TbReportSearch,
+  TbChartPie2,
+  TbAlertHexagon,
+  TbReportAnalytics,
   TbBookmark,
   TbSettings,
   TbLogout,
+  TbScanEye
 } from "react-icons/tb";
 
 const Sidebar = () => {
@@ -21,9 +22,10 @@ const Sidebar = () => {
     {
       title: "Logging & Monitoring",
       items: [
-        { title: "Dashboard", icon: TbChartPie, link: "/" },
-        { title: "Logs", icon: TbReportSearch, link: "/logs" },
-        { title: "Alert Queue", icon: TbUrgent, link: "/alerts" },
+        { title: "Dashboard", icon: TbChartPie2, link: "/" },
+        { title: "Logs", icon: TbReportAnalytics, link: "/logs" },
+        { title: "Alert Queue", icon: TbAlertHexagon, link: "/alerts" },
+        { title: "Agents", icon: TbScanEye, link: "/agents" },
       ],
     },
     {

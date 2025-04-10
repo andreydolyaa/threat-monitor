@@ -3,7 +3,7 @@ import { useStore } from "../../store/useStore";
 import { TbShieldHalf, TbSelector } from "react-icons/tb";
 
 type LogoProps = {
-  isInLogin: boolean;
+  isInLogin?: boolean;
 };
 
 const Logo = ({ isInLogin = false }: LogoProps) => {

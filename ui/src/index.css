@@ -1,5 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,7 +8,7 @@
 }
 
 :root {
-  font-family: "Mona Sans", "Courier New", Courier, monospace;
+  font-family: "DM Sans", "Courier New", Courier, monospace;
   font-weight: normal;
   font-size: 12px;
   --main-background: #071025;
@@ -15,14 +16,12 @@
   --font-color-primary: #ffffff;
   --font-color-secondary: #7f89a2;
   --font-color-sidebar: rgb(174, 185, 225);
-  /* --font-color-active: rgb(255, 54, 134); */
-  --font-color-active: rgb(244, 168, 25);
-  --button-color-primary: #792dca;
+  --font-color-active: rgb(229, 141, 64);
+  --button-color-primary: rgba(103, 65, 208, 1);
   --button-color-secondary: #212c4d;
-  --button-color-primary-hover: #6022a3;
+  --button-color-primary-hover: rgb(81, 28, 137);
   --border-color: #333b4e;
-  /* --border-color: #262d3c; */
-  --border-radius: 4px;
+  --border-radius: 3px;
   --box-shadow: 1px 1px 30px #040a17;
 }
 

@@ -1,16 +1,10 @@
 .custom-button {
   width: 100%;
-  padding: 12px 20px;
+  padding: 14px 20px;
   border-radius: var(--border-radius);
   border: none;
-  background: rgb(121, 45, 202);
-  background: linear-gradient(
-    149deg,
-    rgba(121, 45, 202, 1) 30%,
-    rgba(70, 33, 170, 1) 100%
-  );
+  background-color: transparent;
   color: var(--font-color-primary);
-  box-shadow: 1px 1px 2px 1px rgb(50, 2, 113);
 
   font-weight: 500;
   cursor: pointer;

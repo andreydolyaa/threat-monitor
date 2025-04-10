@@ -5,7 +5,8 @@ type CustomInput = {
   type: "email" | "text" | "password";
   name: string;
   required: boolean;
-  placeholder: string;
+  placeholder?: string;
+  inputColor: "var(--main-background)" | "var(--card-background)";
   handleOnChange: ChangeEventHandler<HTMLInputElement>;
 };
 
@@ -14,19 +15,19 @@ const CustomInput = ({
   name,
   required,
   placeholder,
+  inputColor,
   handleOnChange,
 }: CustomInput) => {
   return (
-    
-      <input
-        className="custom-input"
-        type={type}
-        name={name}
-        required={required}
-        placeholder={placeholder}
-        onChange={handleOnChange}
-      />
-    
+    <input
+      style={{ backgroundColor: inputColor }}
+      className="custom-input"
+      type={type}
+      name={name}
+      required={required}
+      placeholder={placeholder}
+      onChange={handleOnChange}
+    />
   );
 };
 

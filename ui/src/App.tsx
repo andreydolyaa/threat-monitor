@@ -9,6 +9,7 @@ import VirtusTotal from "./pages/VirusTotal/VirtusTotal";
 import Login from "./pages/Login/Login";
 import PublicRoutes from "./layout/PublicRoutes";
 import Loading from "./components/Loading/Loading";
+import Agents from "./pages/Agents/Agents";
 
 function App() {
   const { fetchUser, loading } = useStore((state) => state);
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/logs" element={<Logs />} />
           <Route path="/alerts" element={<Alerts />} />
+          <Route path="/agents" element={<Agents />} />
           <Route path="/virustotal" element={<VirtusTotal />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
