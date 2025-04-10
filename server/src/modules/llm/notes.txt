@@ -1,0 +1,12 @@
+// curl http://localhost:11434/api/generate -d '{
+//   "model": "gemma2:2b",
+//   "prompt": "what color is a elephant?"
+// }' -H "Content-Type: application/json"
+
+
+// curl http://localhost:11434/api/generate -d '{
+//   "model": "gemma2:2b",
+//   "prompt": "what color is a elephant?",
+//   "stream": false,
+//   "raw": true
+// }'

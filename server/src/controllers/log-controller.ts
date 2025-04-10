@@ -2,6 +2,7 @@ import { type Request, type Response } from "express";
 import { Log } from "../models/log-model.ts";
 import { create, del, get } from "../modules/actions/db-actions.ts";
 import type { TLog } from "../types/index.ts";
+import { runGemma2, createLogPrompt } from "../modules/llm/index.ts";
 
 // TODO: pagination
 export const getLogs = async (req: Request, res: Response) => {
@@ -24,7 +25,12 @@ export const deleteLog = async (req: Request, res: Response) => {
 
 export const createLog = async (data: TLog) => {
   try {
-    return await create(Log, data);
+    // return await create(Log, data);
+    const newPrompt = createLogPrompt(data.data.raw);
+    const llmResponse = await runGemma2(newPrompt);
+    console.log(llmResponse.data);
+    // return await create(Log, data);
+    
   } catch (error) {
     return {
       message: "failed to upsert log",
