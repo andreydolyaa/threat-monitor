@@ -1,3 +1,4 @@
+import { exec } from "child_process";
 import { networkInterfaces } from "os";
 import WebSocket from "ws";
 import { Watcher } from "./watcher.js";
@@ -15,12 +16,12 @@ if (
   throw new Error("cannot start: missing environment variables");
 }
 
-const URL = `${SERVER_PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/ws/agent/${AGENT_NAME}`; 
+const URL = `${SERVER_PROTOCOL}://${SERVER_IP}:${SERVER_PORT}/ws/agent/${AGENT_NAME}`;
 const ws = new WebSocket(URL);
 
 const TYPES = {
   AGENT_INFO: "AGENT_INFO",
-  LOG_INFO: "LOG_INFO"
+  LOG_INFO: "LOG_INFO",
 };
 
 const AGENT_STATUS = {
@@ -49,19 +50,53 @@ function exitProcess(signal) {
   process.exit(0);
 }
 
-function initAgent(status) {
+function initAgent(status, info) {
   return {
     type: TYPES.AGENT_INFO,
     agentName: process.env.AGENT_NAME,
     status,
     hostIp: getIp(),
+    systemInfo: info
   };
+}
+
+function getSystemInfo() {
+  const commands = {
+    processes: "ps aux --sort=-%mem | head -n 10",
+    loggedInUsers: "who",
+    systemInfo: "uname -a",
+    uptime: "uptime",
+    networkInterfaces: "ip -o -4 addr show",
+    openPorts: "ss -tuln",
+    routes: "ip route show",
+  };
+
+  const systemInfo = {};
+
+  return new Promise((resolve) => {
+    Promise.all(
+      Object.entries(commands).map(([key, cmd]) => {
+        return new Promise((res) => {
+          exec(cmd, (err, stdout, stderr) => {
+            if (err || stderr) {
+              systemInfo[key] = `Error: ${err?.message || stderr}`;
+            } else {
+              systemInfo[key] = stdout.trim();
+            }
+            res();
+          });
+        });
+      })
+    ).then(() => resolve(systemInfo));
+  });
 }
 
 ws.on("open", () => {
   console.log("agent connected to server:", URL);
-  const agent = JSON.stringify(initAgent(AGENT_STATUS.ONLINE))
-  ws.send(agent); 
+  getSystemInfo().then((info) => {
+    const agent = JSON.stringify(initAgent(AGENT_STATUS.ONLINE, info));
+    ws.send(agent);
+  });
 });
 
 ws.on("error", (err) => console.error("webSocket error:", err));
