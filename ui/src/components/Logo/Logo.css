@@ -15,7 +15,7 @@
       color: var(--button-color-primary);
       font-size: 24px;
       margin-right: 7px;
-      stroke-width: 2;
+      stroke-width: 2.3;
       &.collapsed {
         cursor: pointer;
         font-size: 30px;;

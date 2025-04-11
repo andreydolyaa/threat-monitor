@@ -1,19 +1,21 @@
 import axios from "axios";
+import crypto from "crypto";
+import type { Gemma2ProcessedData } from "../../types";
 
 export const createLogPrompt = (logStr: string) => {
   const prompt = `
   Log: ${logStr}
-  Check if it's REALLY a security concern.
-  Give a JSON response with:
-  - is_suspicious: true/false
-  - severity_score: 1-10
-  - summary: Short plain-English technical summary
-  Respond only with JSON, no explanation and other texts.
+  - iSuspicious: true/false
+  - severityScore: 1-10
+  - summary: Short plain-English technical summary about if it's a security concern or not.
+  Respond ONLY with JSON. example: {isSuspicious: true/false, severityScore: 1-10, summary: ""}
   `;
   return prompt;
 };
 
-export const runGemma2 = async (prompt: string) => {
+export const runGemma2 = async (
+  prompt: string
+): Promise<Gemma2ProcessedData> => {
   const url = "http://localhost:11434/api/generate";
   const data = {
     model: "gemma2:2b",
@@ -23,12 +25,12 @@ export const runGemma2 = async (prompt: string) => {
   };
   try {
     const response = await axios.post(url, data);
-    return response;
+    return response.data.response;
   } catch (error) {
     throw error;
   }
 };
 
-export const hashLog = () => {
-
-}
+export const hashLog = (log: string) => {
+  return crypto.createHash("sha256").update(log).digest("hex");
+};

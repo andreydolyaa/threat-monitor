@@ -11,13 +11,28 @@ export type TAgent = {
   id: string;
 };
 
+export type Gemma2ProcessedData = {
+  isSuspicious: boolean;
+  severityScore: number;
+  summary: string;
+};
+
 export type TLog = {
   _id?: Types.ObjectId;
   agentName: string;
   source: string;
   path: string;
   timestamp: Date;
-  data: { raw: string };
+  data: {
+    raw: string;
+    processed: Gemma2ProcessedData;
+  };
+};
+
+export type HashSchema = {
+  hash: string;
+  raw: string;
+  processed: Gemma2ProcessedData;
 };
 
 export type TUser = {

@@ -1,8 +1,10 @@
 import { type Request, type Response } from "express";
 import { Log } from "../models/log-model.ts";
 import { create, del, get } from "../modules/actions/db-actions.ts";
-import type { TLog } from "../types/index.ts";
-import { runGemma2, createLogPrompt } from "../modules/llm/index.ts";
+import type { Gemma2ProcessedData, HashSchema, TLog } from "../types/index.ts";
+import { runGemma2, createLogPrompt, hashLog } from "../modules/llm/index.ts";
+import { Hash } from "../models/hash-model.ts";
+import { analyzeLog } from '../modules/log-analyzer/analyze.ts';
 
 // TODO: pagination
 export const getLogs = async (req: Request, res: Response) => {
@@ -23,18 +25,45 @@ export const deleteLog = async (req: Request, res: Response) => {
   }
 };
 
-export const createLog = async (data: TLog) => {
-  try {
-    // return await create(Log, data);
-    const newPrompt = createLogPrompt(data.data.raw);
-    const llmResponse = await runGemma2(newPrompt);
-    console.log(llmResponse.data);
-    // return await create(Log, data);
+export const createLog = async (log: TLog) => {
+  const analyzed = analyzeLog(log.data.raw);
+  console.log(analyzed);
+  
+  // const prompt = createLogPrompt(log.data.raw);
+  // const processed = await runGemma2(prompt);
+  // if (!processed) {}
+  // console.log(processed);
+  
+  // try {
+  //   const hashedLog = hashLog(log.data.raw);
+  //   const cachedHash = await Hash.findOne({
+  //     hash: hashedLog,
+  //   });
+
+  //   if (!cachedHash) {
+  //     const prompt = createLogPrompt(log.data.raw);
+  //     const processed: Gemma2ProcessedData = await runGemma2(prompt);
+  //     if (processed) {
+  //       // console.log(processed, "!@!@!");        
+  //       await Hash.create({
+  //         hash: hashedLog,
+  //         raw: log.data.raw,
+  //         processed: processed,
+  //       });
+  //       log.data.processed = { ...processed };
+  //     }
+  //   } else {
+  //     log.data.processed = cachedHash.processed as Gemma2ProcessedData;
+  //   }
+
+  //   console.log(log, "@!@!@!@");
     
-  } catch (error) {
-    return {
-      message: "failed to upsert log",
-      error,
-    };
-  }
+
+  //   return await create(Log, log);
+  // } catch (error) {
+  //   return {
+  //     message: "failed to upsert log",
+  //     error,
+  //   };
+  // }
 };
