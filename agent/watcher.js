@@ -42,13 +42,17 @@ export class Watcher {
     const tail = spawn("tail", ["-n", 0, "-F", this.filePath]);
 
     tail.stdout.on("data", (data) => {
-      const rawMessage = data.toString().trim();
-      const message = MessageSchema.create(
-        this.source,
-        this.filePath,
-        rawMessage
-      );
-      this.send(message);
+      const lines = data.toString().trim().split("\n");
+      lines.forEach((line) => {
+        if (
+          line.includes("sudo: pam_unix(sudo:session): session opened") ||
+          line.includes("sudo: pam_unix(sudo:session): session closed")
+        ) {
+          return;
+        }
+        const message = MessageSchema.create(this.source, this.filePath, line);
+        this.send(message);
+      });
     });
 
     tail.stderr.on("data", (data) => {
