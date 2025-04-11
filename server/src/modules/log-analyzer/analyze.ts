@@ -1,10 +1,5 @@
+import type { LogAnalysisResult } from "../../types/index.ts";
 import { rules } from "./rules.ts";
-
-export type LogAnalysisResult = {
-  severity: number;
-  suspicious: boolean;
-  summary: string;
-};
 
 const defaultResult: LogAnalysisResult = {
   severity: 0,

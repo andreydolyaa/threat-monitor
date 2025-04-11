@@ -23,6 +23,7 @@ const AgentSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
+    systemInfo: Object
   },
   {
     versionKey: false,

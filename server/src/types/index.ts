@@ -9,11 +9,14 @@ export type TAgent = {
   status: "ONLINE" | "OFFLINE";
   hostIp: string;
   id: string;
+  systemInfo: {
+    
+  }
 };
 
-export type Gemma2ProcessedData = {
-  isSuspicious: boolean;
-  severityScore: number;
+export type LogAnalysisResult = {
+  severity: number;
+  suspicious: boolean;
   summary: string;
 };
 
@@ -23,16 +26,11 @@ export type TLog = {
   source: string;
   path: string;
   timestamp: Date;
+  logId?: number;
   data: {
     raw: string;
-    processed: Gemma2ProcessedData;
+    processed: LogAnalysisResult;
   };
-};
-
-export type HashSchema = {
-  hash: string;
-  raw: string;
-  processed: Gemma2ProcessedData;
 };
 
 export type TUser = {
@@ -40,6 +38,11 @@ export type TUser = {
   username: string;
   email: string;
   password: string;
+};
+
+export type CounterSchema = {
+  identifier: string;
+  seq: number;
 };
 
 export interface AuthenticatedRequest extends Request {

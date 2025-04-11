@@ -1,10 +1,10 @@
 import { type Request, type Response } from "express";
 import { Log } from "../models/log-model.ts";
 import { create, del, get } from "../modules/actions/db-actions.ts";
-import type { Gemma2ProcessedData, HashSchema, TLog } from "../types/index.ts";
-import { runGemma2, createLogPrompt, hashLog } from "../modules/llm/index.ts";
-import { Hash } from "../models/hash-model.ts";
-import { analyzeLog } from '../modules/log-analyzer/analyze.ts';
+import type { CounterSchema, TLog } from "../types/index.ts";
+import { analyzeLog } from "../modules/log-analyzer/analyze.ts";
+import logger from "../core/logger.ts";
+import { Counter } from "../models/counter-model.ts";
 
 // TODO: pagination
 export const getLogs = async (req: Request, res: Response) => {
@@ -27,43 +27,30 @@ export const deleteLog = async (req: Request, res: Response) => {
 
 export const createLog = async (log: TLog) => {
   const analyzed = analyzeLog(log.data.raw);
-  console.log(analyzed);
-  
-  // const prompt = createLogPrompt(log.data.raw);
-  // const processed = await runGemma2(prompt);
-  // if (!processed) {}
-  // console.log(processed);
-  
-  // try {
-  //   const hashedLog = hashLog(log.data.raw);
-  //   const cachedHash = await Hash.findOne({
-  //     hash: hashedLog,
-  //   });
+  try {
+    const identifier = { identifier: "logId" };
+    const isCounterExist = await Counter.countDocuments();
 
-  //   if (!cachedHash) {
-  //     const prompt = createLogPrompt(log.data.raw);
-  //     const processed: Gemma2ProcessedData = await runGemma2(prompt);
-  //     if (processed) {
-  //       // console.log(processed, "!@!@!");        
-  //       await Hash.create({
-  //         hash: hashedLog,
-  //         raw: log.data.raw,
-  //         processed: processed,
-  //       });
-  //       log.data.processed = { ...processed };
-  //     }
-  //   } else {
-  //     log.data.processed = cachedHash.processed as Gemma2ProcessedData;
-  //   }
+    if (!isCounterExist) {
+      await Counter.create({ seq: 999 });
+    }
 
-  //   console.log(log, "@!@!@!@");
-    
+    const logIdCounter: CounterSchema = await Counter.findOneAndUpdate(
+      identifier,
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    ).lean();
 
-  //   return await create(Log, log);
-  // } catch (error) {
-  //   return {
-  //     message: "failed to upsert log",
-  //     error,
-  //   };
-  // }
+    log.logId = logIdCounter.seq;
+    log.data.processed = analyzed;
+
+    logger.info(`LOG | log analysis done`);
+    return await Log.create(log);
+  } catch (error) {
+    logger.error(`LOG | failed to create log: ${error}`);
+    return {
+      message: "failed to upsert log",
+      error,
+    };
+  }
 };

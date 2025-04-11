@@ -21,6 +21,9 @@ const LogsSchema = new mongoose.Schema(
       type: Date,
       index: true,
     },
+    logId: {
+      type: Number
+    },
     data: {
       raw: String,
       processed: {
