@@ -11,7 +11,7 @@ export const getUser = async (req: AuthenticatedRequest, res: Response) => {
     if (!user) res.status(404).json({ message: "cannot find user" });
     else {
       const { password, ...userWithoutPassword } = user ?? {};
-      // await sleep(1000)
+      // await sleep(3000)
       res.status(200).json({ message: "get user", user: userWithoutPassword });
     }
   } catch (error) {

@@ -5,7 +5,7 @@ import { useStore } from "../store/useStore";
 const PrivateRoutes = () => {
   const { user } = useStore((state) => state);
 
-  return user ? <Layout /> : <Navigate to="/login" />;
+  return user ? <Layout /> : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoutes;

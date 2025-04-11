@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useStore } from "./store/useStore";
 import PrivateRoutes from "./layout/PrivateRoutes";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -12,13 +12,14 @@ import Loading from "./components/Loading/Loading";
 import Agents from "./pages/Agents/Agents";
 
 function App() {
-  const { fetchUser, loading } = useStore((state) => state);
+  const { fetchUser } = useStore((state) => state);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    fetchUser();
+    fetchUser().then(() => setIsInitialized(true));
   }, []);
 
-  if (loading) return <Loading isFullPage={true}/>;
+  if (!isInitialized) return <Loading isFullPage={true} />;
 
   return (
     <BrowserRouter>
@@ -29,11 +30,12 @@ function App() {
           <Route path="/alerts" element={<Alerts />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/virustotal" element={<VirtusTotal />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
         <Route element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>
