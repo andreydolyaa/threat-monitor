@@ -9,7 +9,7 @@ import { Counter } from "../models/counter-model.ts";
 // TODO: pagination
 export const getLogs = async (req: Request, res: Response) => {
   try {
-    const logs = await get(Log);
+    const logs = await get(Log, req);
     res.status(200).json({ data: logs });
   } catch (error) {
     res.status(400).send({ message: "failed to get logs", error });
@@ -44,7 +44,7 @@ export const createLog = async (log: TLog) => {
     log.logId = logIdCounter.seq;
     log.data.processed = analyzed;
 
-    logger.info(`LOG | log analysis done`);
+    logger.info(`LOG | log analysis done [LOG_ID: ${logIdCounter.seq}]`);
     return await Log.create(log);
   } catch (error) {
     logger.error(`LOG | failed to create log: ${error}`);

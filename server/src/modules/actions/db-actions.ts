@@ -1,13 +1,30 @@
 import type { Request } from "express";
-import { type Model, type Document } from "mongoose";
+import { type Model, type Document, type RootFilterQuery } from "mongoose";
 import logger from "../../core/logger.ts";
 import type { DbActionFilter } from "../../types/index.ts";
 import { strObj } from "../../utils/index.ts";
 
 // TODO: pagination
-export async function get<T>(model: Model<T>) {
+export async function get<T>(model: Model<T>, req: Request) {
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+  const skip = (page - 1) * limit;
+
+  const searchQuery: RootFilterQuery<T> = { $or: [] };
+
+  if (req.query.search) {
+    const searchRegex = { $regex: req.query.search, $options: "i" };
+    searchQuery.$or = [{ logId: searchRegex }];
+  }
+
   try {
-    const data = await model.find({});
+    const data = await model
+      .find({ ...searchQuery })
+      .skip(skip)
+      .limit(limit);
+
+    if (!data) throw new Error();
+
     logger.info(`DB | GET req [${strObj(data)}]`);
     return data;
   } catch (error) {

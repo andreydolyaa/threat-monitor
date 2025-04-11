@@ -1,6 +1,5 @@
 import axios from "axios";
 import crypto from "crypto";
-import type { Gemma2ProcessedData } from "../../types";
 
 export const createLogPrompt = (logStr: string) => {
   const prompt = `
@@ -13,9 +12,7 @@ export const createLogPrompt = (logStr: string) => {
   return prompt;
 };
 
-export const runGemma2 = async (
-  prompt: string
-): Promise<Gemma2ProcessedData> => {
+export const runGemma2 = async (prompt: string) => {
   const url = "http://localhost:11434/api/generate";
   const data = {
     model: "gemma2:2b",
