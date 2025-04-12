@@ -1,9 +1,9 @@
 import Layout from "./Layout";
 import { Navigate } from "react-router";
-import { useStore } from "../store/useStore";
+import { useUserStore } from "../store/user";
 
 const PrivateRoutes = () => {
-  const { user } = useStore((state) => state);
+  const { user } = useUserStore();
 
   return user ? <Layout /> : <Navigate to="/login" replace />;
 };

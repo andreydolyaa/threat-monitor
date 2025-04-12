@@ -1,21 +1,21 @@
 import "./Logo.css";
-import { useStore } from "../../store/useStore";
 import { TbShieldHalf, TbSelector } from "react-icons/tb";
+import { useSidebarStore } from "../../store/sidebar";
 
 type LogoProps = {
   isInLogin?: boolean;
 };
 
 const Logo = ({ isInLogin = false }: LogoProps) => {
-  const isCollapsed = useStore((state) => state.isSidebarCollapsed);
-  const toggleSidebar = useStore((state) => state.toggleSidebar);
-
+  const { isSidebarCollapsed, toggleSidebar } = useSidebarStore();
   return (
     <div className="logo">
       <div className="logo-and-text">
         <TbShieldHalf
           className="logo-icon"
-          onClick={!isInLogin ? () => isCollapsed && toggleSidebar() : undefined}
+          onClick={
+            !isInLogin ? () => isSidebarCollapsed && toggleSidebar() : undefined
+          }
         />
         <div className="title">Threat Monitor</div>
       </div>

@@ -3,7 +3,6 @@ import Logo from "../Logo/Logo";
 import { SidebarSectionItem, type SidebarItemType } from "../../types";
 import SidebarItem from "./SidebarItem";
 import SidebarTitle from "./SidebarTitle";
-import { useStore } from "../../store/useStore";
 import {
   TbChartPie2,
   TbAlertHexagon,
@@ -11,12 +10,14 @@ import {
   TbBookmark,
   TbSettings,
   TbLogout,
-  TbScanEye
+  TbScanEye,
 } from "react-icons/tb";
+import { useUserStore } from "../../store/user";
+import { useSidebarStore } from "../../store/sidebar";
 
 const Sidebar = () => {
-  const isCollapsed = useStore((state) => state.isSidebarCollapsed);
-  const logout = useStore((state) => state.logout);
+  const isCollapsed = useSidebarStore((state) => state.isSidebarCollapsed);
+  const { logout } = useUserStore();
 
   const sections = [
     {

@@ -1,7 +1,8 @@
+import { create } from "zustand";
 import { fetchUser, login, logout } from "../api/api";
 import { type LoginData, type UserState } from "../types";
 
-export const createUserSlice = (set: any): UserState => ({
+export const useUserStore = create<UserState>((set) => ({
   user: null,
   loading: false,
   error: null,
@@ -37,4 +38,4 @@ export const createUserSlice = (set: any): UserState => ({
       set({ error: (error as Error).message, loading: false });
     }
   },
-});
+}));

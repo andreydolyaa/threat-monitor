@@ -2,11 +2,11 @@ import "./Layout.css";
 import { Sidebar } from "../components/Sidebar";
 import { Topbar } from "../components/Topbar";
 import { Outlet } from "react-router";
-import { useStore } from "../store/useStore";
+import { useSidebarStore } from "../store/sidebar";
 
 const Layout = () => {
-  const isCollapsed = useStore((state) => state.isSidebarCollapsed);
-  
+  const isCollapsed = useSidebarStore((state) => state.isSidebarCollapsed);
+
   return (
     <div className={`layout ${isCollapsed ? "collapsed" : ""}`}>
       <Sidebar />

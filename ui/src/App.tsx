@@ -1,6 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { useEffect, useState } from "react";
-import { useStore } from "./store/useStore";
 import PrivateRoutes from "./layout/PrivateRoutes";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Logs from "./pages/Logs/Logs";
@@ -10,9 +9,10 @@ import Login from "./pages/Login/Login";
 import PublicRoutes from "./layout/PublicRoutes";
 import Loading from "./components/Loading/Loading";
 import Agents from "./pages/Agents/Agents";
+import { useUserStore } from "./store/user";
 
 function App() {
-  const { fetchUser } = useStore((state) => state);
+  const { fetchUser } = useUserStore();
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {

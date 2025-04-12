@@ -15,3 +15,8 @@ export const fetchUser = async (): Promise<UserState> => {
   const response = await api.get("/api/auth/user");
   return response.data;
 };
+
+export const getLogs = async () => {
+  const response = await api.get("/api/logs");
+  return response.data;
+};

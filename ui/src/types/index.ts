@@ -43,3 +43,10 @@ export type UserState = {
   login: (data: LoginData) => Promise<void>;
   logout: () => Promise<void>;
 };
+
+export interface LogsState {
+  logs: [];
+  loading: boolean;
+  error: string | null;
+  getLogs: () => Promise<void>;
+}

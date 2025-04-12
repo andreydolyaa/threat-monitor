@@ -1,14 +1,14 @@
 import "./Login.css";
 import React, { useState } from "react";
-import { useStore } from "../../store/useStore";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import Container from "../../components/Container/Container";
 import Logo from "../../components/Logo/Logo";
 import CustomButton from "../../components/CustomButton/CustomButton";
+import { useUserStore } from "../../store/user";
 
 export const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const { login } = useStore();
+  const { login } = useUserStore();
 
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;

@@ -6,3 +6,9 @@ export function strObj(obj: unknown) {
   return JSON.stringify(obj);
 }
 
+export function responseWrapper(type: string, data: any) {
+  return {
+    type,
+    data,
+  };
+}

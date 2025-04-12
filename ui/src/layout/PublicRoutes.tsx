@@ -1,10 +1,9 @@
-
-import { useStore } from "../store/useStore";
+import { useUserStore } from "../store/user";
 import { Navigate, Outlet } from "react-router";
 
 const PublicRoutes = () => {
-  const { user } = useStore((state) => state);
-  
+  const { user } = useUserStore();
+
   return user ? <Navigate to="/" replace /> : <Outlet />;
 };
 
