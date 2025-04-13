@@ -44,6 +44,23 @@ export type UserState = {
   logout: () => Promise<void>;
 };
 
+export type Log = {
+  agentName: string;
+  source: string;
+  path: string;
+  timestamp: string;
+  logId: number;
+  endpointIp: string;
+  data: {
+    raw: string;
+    processed: {
+      suspicious: boolean;
+      severity: number;
+      summary: string;
+    };
+  };
+};
+
 export interface PaginationQuery {
   currentPage: number;
   limit: number;
@@ -60,7 +77,7 @@ export interface ResponseWithPagination {
 }
 
 export interface LogsState {
-  logs: [];
+  logs: Log[];
   loading: boolean;
   error: string | null;
   getLogs: ({

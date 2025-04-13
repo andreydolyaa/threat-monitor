@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLogsStore } from "../../store/logs";
 import Pagination from "../../components/Pagination/Pagination";
+import LogsTable from "./LogsTable";
 
 const Logs = () => {
   const [search, setSearch] = useState("");
@@ -13,9 +14,12 @@ const Logs = () => {
     getLogs({ currentPage, limit, search }).then((logs) =>
       setTotalPages(logs.data.totalPages)
     );
+    
   }, [currentPage, search]);
+
   return (
-    <div>
+    <div className="logs">
+      <LogsTable />
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
