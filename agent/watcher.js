@@ -4,9 +4,10 @@ import readline from "readline";
 import { MessageSchema } from "./messageSchema.js";
 
 export class Watcher {
-  constructor(filePath, source, ws) {
+  constructor(filePath, source, ws, deviceIp) {
     this.filePath = filePath;
     this.source = source;
+    this.deviceIp = deviceIp;
     this.ws = ws;
     this.readInterval = parseInt(process.env.REPORT_INTERVAL);
   }
@@ -50,7 +51,7 @@ export class Watcher {
         ) {
           return;
         }
-        const message = MessageSchema.create(this.source, this.filePath, line);
+        const message = MessageSchema.create(this.source, this.filePath, line, this.deviceIp);
         this.send(message);
       });
     });

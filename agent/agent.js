@@ -56,7 +56,7 @@ function initAgent(status, info) {
     agentName: process.env.AGENT_NAME,
     status,
     hostIp: getIp(),
-    systemInfo: info
+    systemInfo: info,
   };
 }
 
@@ -119,11 +119,12 @@ process.on(SIGNAL.EXIT, (code) => {
   exitProcess(SIGNAL.EXIT);
 });
 
+const endpointIp = getIp();
 // watch:
 
 // Auth logs
 const authLogFile = "/var/log/auth.log";
-const authLogsWatcher = new Watcher(authLogFile, "auth", ws);
+const authLogsWatcher = new Watcher(authLogFile, "auth", ws, endpointIp);
 authLogsWatcher.watch();
 
 // Syslogs
