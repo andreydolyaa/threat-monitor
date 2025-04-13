@@ -1,0 +1,13 @@
+.pagination {
+  border: 1px solid var(--border-color);
+  width:320px;
+  display: flex;
+  border-radius: var(--border-radius);
+  background-color: var(--card-background);
+  .page-of {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+  }
+}

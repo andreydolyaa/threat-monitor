@@ -25,8 +25,16 @@ export async function get<T>(model: Model<T>, req: Request) {
 
     if (!data) throw new Error();
 
+    const totalLogs = await model.countDocuments({ ...searchQuery });
+    const totalPages = Math.ceil(totalLogs / limit);
+    const responseData = {
+      data,
+      totalPages,
+      currentPage: page,
+    };
+
     logger.info(`DB | GET req [${strObj(data)}]`);
-    return data;
+    return responseData;
   } catch (error) {
     logger.error(`DB | error during GET req`);
     throw error;

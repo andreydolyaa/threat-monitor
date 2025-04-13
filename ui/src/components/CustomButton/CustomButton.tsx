@@ -1,13 +1,16 @@
 import "./CustomButton.css";
-import React from "react";
 
 type CustomButtonProps = {
-  type: "button" | "submit";
+  type?: "button" | "submit";
   text: string;
   handleOnClick?: () => void; //TODO: TBD
 };
 
-const CustomButton = ({ type, text, handleOnClick }: CustomButtonProps) => {
+const CustomButton = ({
+  type = "button",
+  text,
+  handleOnClick,
+}: CustomButtonProps) => {
   return (
     <button type={type} className="custom-button" onClick={handleOnClick}>
       {text}

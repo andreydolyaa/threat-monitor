@@ -7,6 +7,10 @@ const LogsSchema = new mongoose.Schema(
       type: String,
       index: true,
     },
+    endpointIp: {
+      type: String,
+      index: true,
+    },
     source: {
       required: true,
       type: String,
@@ -22,7 +26,7 @@ const LogsSchema = new mongoose.Schema(
       index: true,
     },
     logId: {
-      type: Number
+      type: Number,
     },
     data: {
       raw: String,

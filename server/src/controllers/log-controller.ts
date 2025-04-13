@@ -44,7 +44,8 @@ export const createLog = async (log: TLog) => {
 
     log.logId = logIdCounter.seq;
     log.data.processed = analyzed;
-
+    console.log(log, "@|@");
+    
     logger.info(`LOG | log analysis done [LOG_ID: ${logIdCounter.seq}]`);
     return await Log.create(log);
   } catch (error) {

@@ -44,9 +44,28 @@ export type UserState = {
   logout: () => Promise<void>;
 };
 
+export interface PaginationQuery {
+  currentPage: number;
+  limit: number;
+  search: string;
+}
+
+export interface ResponseWithPagination {
+  type: string;
+  data: {
+    data: any[];
+    totalPages: number;
+    currentPage: number;
+  };
+}
+
 export interface LogsState {
   logs: [];
   loading: boolean;
   error: string | null;
-  getLogs: () => Promise<void>;
+  getLogs: ({
+    currentPage,
+    limit,
+    search,
+  }: PaginationQuery) => Promise<ResponseWithPagination>;
 }

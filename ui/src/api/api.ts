@@ -1,4 +1,4 @@
-import { LoginData, UserState, LoginResponse } from "../types";
+import { LoginData, UserState, LoginResponse, PaginationQuery } from "../types";
 import api from "./index";
 
 export const login = async (data: LoginData): Promise<LoginResponse> => {
@@ -16,7 +16,15 @@ export const fetchUser = async (): Promise<UserState> => {
   return response.data;
 };
 
-export const getLogs = async () => {
-  const response = await api.get("/api/logs");
+export const getLogs = async ({
+  currentPage,
+  limit,
+  search,
+}: PaginationQuery) => {
+  const response = await api.get(
+    `/api/logs?page=${currentPage}&limit=${limit}&search=${encodeURIComponent(
+      search
+    )}`
+  );
   return response.data;
 };

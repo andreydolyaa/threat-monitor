@@ -23,6 +23,7 @@ export type LogAnalysisResult = {
 export type TLog = {
   _id?: Types.ObjectId;
   agentName: string;
+  endpointIp: string;
   source: string;
   path: string;
   timestamp: Date;
