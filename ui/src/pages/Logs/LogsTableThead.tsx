@@ -13,8 +13,6 @@ const LogsTableThead = () => {
   return (
     <thead>
       <tr>
-        {/* <td>LOG ID</td>
-        <td>ALERT RULE</td> */}
         {titles.map((title) => {
           return <td key={title}>{title}</td>;
         })}

@@ -3,10 +3,10 @@ import React from "react";
 
 type ContainerProps = {
   children: React.ReactNode;
-  center: boolean;
+  center?: boolean;
 };
 
-const Container = ({ children, center }: ContainerProps) => {
+const Container = ({ children, center = false }: ContainerProps) => {
   return (
     <div className={`container ${center ? "center" : ""}`}>{children}</div>
   );

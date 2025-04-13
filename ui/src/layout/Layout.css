@@ -10,6 +10,10 @@
     "sidebar main";
   .main {
     grid-area: main;
+    /* height: 100%; */
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
   }
   @media (max-width: 1024px) {
     grid-template-columns: 70px 1fr;
@@ -48,12 +52,15 @@
 }
 
 .sidebar-appear {
-  animation: sidebar-appear .5s ease 1;
+  animation: sidebar-appear 0.5s ease 1;
 }
 
 /* applied in Layout.tsx when isCollapsed true */
 .collapsed {
   grid-template-columns: 70px 1fr;
+  .topbar {
+    left: 70px;
+  }
   .sidebar {
     width: 70px;
     .logo {

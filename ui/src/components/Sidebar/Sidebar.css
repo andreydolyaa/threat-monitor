@@ -2,6 +2,9 @@
   grid-area: sidebar;
   width: 300px;
   transition: 0.2s;
+  position: fixed;
+  height: 100%;
+  background-color: var(--main-background);
   border-right: 1px solid var(--border-color);
   @media (max-width: 1024px) {
     width: 70px;

@@ -19,6 +19,7 @@ function App() {
     fetchUser().then(() => setIsInitialized(true));
   }, []);
 
+  // if (!isInitialized) return "";
   if (!isInitialized) return <Loading isFullPage={true} />;
 
   return (

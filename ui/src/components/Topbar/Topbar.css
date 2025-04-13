@@ -1,4 +1,13 @@
 .topbar {
   grid-area: topbar;
+  position: fixed;
+  height: 60px;
+  left: 300px;
+  width:100%;
+  transition: 0.2s;
+  background-color: var(--main-background);
   border-bottom: 1px solid var(--border-color);
+  @media (max-width: 1024px) {
+    left: 70px;
+  }
 }
