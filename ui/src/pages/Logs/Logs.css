@@ -9,45 +9,32 @@
   }
 }
 .logs {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
   width: 100%;
   overflow-y: scroll;
   border: 1px solid var(--border-color);
-  /* padding:20px; */
   border-radius: var(--border-radius);
   margin: 36px 0;
 }
 
-.logs table {
-  display: table;
-  table-layout: auto;
-  background-color: var(--card-background);
-  border-spacing: 1px;
-  border-collapse: collapse;
-  font-size: 14px;
-  thead tr td {
-    background-color: #090e1d;
-    padding: 15px;
-    text-transform: capitalize;
-  }
-  tbody tr td {
-    padding: 15px;
-  }
-  tr:nth-child(even) {
-    background-color: #090e1d;
-  }
-
-  tr:nth-child(odd) {
-    background-color: #060a14;
-  }
+.logs-table {
+  /* display: grid; */
+  /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
+  /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: auto; */
+  border: 1px solid green;
 }
 
+.logs-table-header {
+  border: 1px solid magenta;
+}
+
+.log-item {
+  border: 1px solid red;
+}
 
 .logs-toolbar {
-  border:1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  height:70px;
+  height: 70px;
   width: 100%;
 }

@@ -2,10 +2,10 @@ import "./Logs.css";
 import { useEffect, useState } from "react";
 import { useLogsStore } from "../../store/logs";
 import Pagination from "../../components/Pagination/Pagination";
-import LogsTable from "./LogsTable";
 import Loading from "../../components/Loading/Loading";
 import Container from "../../components/Container/Container";
 import LogsToolbar from "./LogsToolbar";
+import LogsTable from "./LogsTable";
 
 const Logs = () => {
   const [search, setSearch] = useState("");
@@ -36,7 +36,7 @@ const Logs = () => {
     <Container>
       <div className="logs-wrapper">
         <LogsToolbar />
-        
+
         <div className="logs">
           <LogsTable logs={logs} />
         </div>

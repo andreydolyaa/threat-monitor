@@ -1,13 +1,15 @@
-import LogsTableThead from "./LogsTableThead";
-import LogsTableRow from "./LogsTableRow";
 import { LogsTableProps } from "../../types";
+import LogsItem from "./LogsItem";
+import LogsTableHeader from "./LogsTableHeader";
 
 const LogsTable = ({ logs }: LogsTableProps) => {
   return (
-    <table>
-      <LogsTableThead />
-      <LogsTableRow logs={logs} />
-    </table>
+    <div className="logs-table">
+      <LogsTableHeader />
+      {logs.map((log) => {
+        return <LogsItem key={log.logId} log={log} />;
+      })}
+    </div>
   );
 };
 
