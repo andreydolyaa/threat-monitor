@@ -1,6 +1,5 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,19 +10,22 @@
   font-family: "DM Sans", "Courier New", Courier, monospace;
   font-weight: normal;
   font-size: 12px;
-  --main-background: #071025;
-  --card-background: #101935;
+  --main-background: #13181f;
+  --card-background: #171c26;
+  --card-background-2: #1b212d;
+  --sidebar-background: #171c26;
   --font-color-primary: #ffffff;
-  --font-color-secondary: #7f89a2;
-  --font-color-sidebar: rgb(174, 185, 225);
-  --font-color-active: rgb(229, 141, 64);
-  --button-color-primary: rgba(103, 65, 208, 1);
+  --font-color-secondary: rgb(155, 166, 183);
+  --font-color-sidebar: rgb(155, 166, 183);
+  --font-color-active: rgb(127, 80, 255);
+  --button-color-primary: rgb(127, 80, 255);
   --button-color-secondary: #212c4d;
-  --button-color-primary-hover: rgb(81, 28, 137);
-  --border-color: #333b4e;
+  --button-color-primary-hover: rgb(106, 67, 213);
+  --border-color: #292f3e;
   --border-radius: 3px;
   --box-shadow: 1px 1px 30px #040a17;
-
+  --hover: rgba(15, 16, 18, 0.1);
+  --grid-template-columns: 60px 60px 100px 160px 1fr 140px 120px 120px;
 }
 
 #root,

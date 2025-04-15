@@ -6,6 +6,7 @@ import Loading from "../../components/Loading/Loading";
 import Container from "../../components/Container/Container";
 import LogsToolbar from "./LogsToolbar";
 import LogsTable from "./LogsTable";
+import LogsTableHeader from "./LogsTableHeader";
 
 const Logs = () => {
   const [search, setSearch] = useState("");
@@ -37,6 +38,7 @@ const Logs = () => {
       <div className="logs-wrapper">
         <LogsToolbar />
 
+        <LogsTableHeader />
         <div className="logs">
           <LogsTable logs={logs} />
         </div>

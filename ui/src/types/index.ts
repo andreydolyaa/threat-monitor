@@ -87,6 +87,11 @@ export interface LogsState {
   }: PaginationQuery) => Promise<ResponseWithPagination>;
 }
 
+export type LogProps = {
+  log: Log;
+  onClick?: () => void;
+};
+
 export type LogsTableProps = {
   logs: Log[];
 };
