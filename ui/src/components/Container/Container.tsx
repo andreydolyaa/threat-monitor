@@ -4,11 +4,21 @@ import React from "react";
 type ContainerProps = {
   children: React.ReactNode;
   center?: boolean;
+  column?: boolean;
 };
 
-const Container = ({ children, center = false }: ContainerProps) => {
+const Container = ({
+  children,
+  center = false,
+  column = false,
+}: ContainerProps) => {
   return (
-    <div className={`container ${center ? "center" : ""}`}>{children}</div>
+    <div
+      className={`container ${center ? "center" : ""} ${
+        column ? "column" : ""
+      }`}>
+      {children}
+    </div>
   );
 };
 

@@ -7,12 +7,13 @@ import Container from "../../components/Container/Container";
 import LogsToolbar from "./LogsToolbar";
 import LogsTable from "./LogsTable";
 import LogsTableHeader from "./LogsTableHeader";
+import Empty from "../../components/Empty/Empty";
 
 const Logs = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const { getLogs, logs, loading } = useLogsStore();
+  const { getLogs, logs, loading, error } = useLogsStore();
   const limit = 20;
 
   useEffect(() => {
@@ -21,34 +22,24 @@ const Logs = () => {
     );
   }, [currentPage, search]);
 
-  const fetching = () => {
+  if (loading) {
     return <Loading isFullPage={true} />;
-  };
-
-  // TODO: handle
-  const empty = () => {
-    return <div>EMPTY (NO SEARCH RESULTS OR NO DATA FETCHED)</div>;
-  };
-
-  if (loading) return fetching();
-  if (!loading && !logs.length) return empty();
+  }
+  
+  if (!logs.length || error) {
+    return <Empty message={error ? error : "no log data found"} />;
+  }
 
   return (
-    <Container>
-      <div className="logs-wrapper">
-        <LogsToolbar />
-
-        <LogsTableHeader />
-        <div className="logs">
-          <LogsTable logs={logs} />
-        </div>
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
-      </div>
+    <Container column>
+      <LogsToolbar />
+      <LogsTableHeader />
+      <LogsTable logs={logs} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </Container>
   );
 };

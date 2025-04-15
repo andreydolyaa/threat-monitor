@@ -5,12 +5,13 @@ import type { CounterSchema, TLog } from "../types/index.ts";
 import { analyzeLog } from "../modules/log-analyzer/analyze.ts";
 import logger from "../core/logger.ts";
 import { Counter } from "../models/counter-model.ts";
-import { responseWrapper } from "../utils/index.ts";
+import { responseWrapper, sleep } from "../utils/index.ts";
 
 // TODO: pagination
 export const getLogs = async (req: Request, res: Response) => {
   try {
     const logs = await get(Log, req);
+    // await sleep(3000)
     res.status(200).json({ data: logs, type: "logs" });
   } catch (error) {
     res.status(400).send({ message: "failed to get logs", error });
