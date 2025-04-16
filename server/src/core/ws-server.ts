@@ -28,8 +28,6 @@ export class WsServer {
       logger.info(`agent connected [${agentName}]`);
       websocket.on("message", this.onMessage);
       websocket.on("close", (code, reason) => {
-        this.clients.delete(agentName);
-        console.log(this.clients);
         this.onClose(code, reason, agentName);
       });
       websocket.on("error", this.onError);
@@ -44,21 +42,29 @@ export class WsServer {
 
   onClose(code: number, reason: string | Buffer, agentName: string) {
     const msg = `agent disconnected [${agentName}] [code:${code}] [reason:${reason}]`;
+    this.clients.delete(agentName);
     logger.warn(msg);
-    this.shutdownClients();
   }
 
-  // TODO: sp
-  shutdownClients() {
-    for (const [agentName, client] of this.clients) {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(
-          JSON.stringify({
-            type: "WS_SERVER_SHUTDOWN",
-            message: "server is shutting down" + agentName,
-          })
-        );
-        client.close(1001, "server shutting down");
+  send(message: string | object, type: string, singleClientName?: string) {
+    const data = JSON.stringify({ type, data: message });
+
+    if (singleClientName) {
+      const client = this.clients.get(singleClientName);
+      this.handleClientSend(client, data);
+    } else {
+      for (const [agentName, client] of this.clients) {
+        this.handleClientSend(client, data);
+      }
+    }
+  }
+
+  handleClientSend(client: WebSocket | undefined, data: string) {
+    if (client?.readyState === WebSocket.OPEN) {
+      try {
+        client?.send(data);
+      } catch (error) {
+        logger.error("WS | failed to send message");
       }
     }
   }

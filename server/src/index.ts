@@ -13,7 +13,7 @@ if (!process.env.DB_URL) {
   throw new Error("database is disconnected");
 }
 
-const server = new Server({
+export const server = new Server({
   port: parseInt(process.env.SERVER_PORT),
   router,
 });

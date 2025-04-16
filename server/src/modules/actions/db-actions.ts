@@ -21,7 +21,8 @@ export async function get<T>(model: Model<T>, req: Request) {
     const data = await model
       .find({ ...searchQuery })
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .sort({ logId: -1})
 
     if (!data) throw new Error();
 

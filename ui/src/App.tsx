@@ -10,10 +10,13 @@ import PublicRoutes from "./layout/PublicRoutes";
 import Loading from "./components/Loading/Loading";
 import Agents from "./pages/Agents/Agents";
 import { useUserStore } from "./store/user";
+import { useWebSocket } from "./hooks/useWebSocket";
 
 function App() {
   const { fetchUser } = useUserStore();
   const [isInitialized, setIsInitialized] = useState(false);
+  const url = "ws://localhost:3005/ws"
+  const websocket = useWebSocket(url);
 
   useEffect(() => {
     fetchUser().then(() => setIsInitialized(true));

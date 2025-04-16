@@ -6,6 +6,7 @@ import { analyzeLog } from "../modules/log-analyzer/analyze.ts";
 import logger from "../core/logger.ts";
 import { Counter } from "../models/counter-model.ts";
 import { responseWrapper, sleep } from "../utils/index.ts";
+import { notify } from "../modules/actions/ws-actions.ts";
 
 // TODO: pagination
 export const getLogs = async (req: Request, res: Response) => {
@@ -45,8 +46,10 @@ export const createLog = async (log: TLog) => {
 
     log.logId = logIdCounter.seq;
     log.data.processed = analyzed;
-    
+
     logger.info(`LOG | log analysis done [LOG_ID: ${logIdCounter.seq}]`);
+    
+    notify("log-message", log);
     return await Log.create(log);
   } catch (error) {
     logger.error(`LOG | failed to create log: ${error}`);

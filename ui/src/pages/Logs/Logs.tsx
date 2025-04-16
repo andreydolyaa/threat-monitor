@@ -14,7 +14,7 @@ const Logs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const { getLogs, logs, loading, error } = useLogsStore();
-  const limit = 20;
+  const limit = 12;
 
   useEffect(() => {
     getLogs({ currentPage, limit, search }).then((logs) =>

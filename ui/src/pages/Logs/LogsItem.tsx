@@ -5,10 +5,10 @@ import Badge from "../../components/Badge/Badge";
 const LogsItem = ({ log, onClick }: LogProps) => {
   const setSeverity = (severity: number) => {
     return severity <= 5
-      ? { severity: "low", color: "rgba(8, 255, 139, 0.1)" }
+      ? { severity: "low", color: "rgba(8, 255, 57, 0.1)" }
       : severity <= 7
-      ? { severity: "medium", color: "rgba(255, 111, 0, 0.1)" }
-      : { severity: "high", color: "rgba(255, 0, 98, 0.1)" };
+      ? { severity: "medium", color: "rgba(255, 174, 0, 0.1)" }
+      : { severity: "high", color: "rgba(255, 0, 0, 0.1)" };
   };
 
   const { severity, color } = setSeverity(log.data.processed.severity);
