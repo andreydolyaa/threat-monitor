@@ -61,6 +61,11 @@ export type Log = {
   };
 };
 
+export type LogResponseWrapper = {
+  type: string;
+  data: Log;
+}
+
 export interface PaginationQuery {
   currentPage: number;
   limit: number;
@@ -85,6 +90,7 @@ export interface LogsState {
     limit,
     search,
   }: PaginationQuery) => Promise<ResponseWithPagination>;
+  addLog: (log: Log) => void;
 }
 
 export type LogProps = {
@@ -94,4 +100,8 @@ export type LogProps = {
 
 export type LogsTableProps = {
   logs: Log[];
+};
+
+export type SearchProps = {
+  onSearch: (search: string) => void;
 };

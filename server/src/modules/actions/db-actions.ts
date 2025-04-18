@@ -4,17 +4,26 @@ import logger from "../../core/logger.ts";
 import type { DbActionFilter } from "../../types/index.ts";
 import { strObj } from "../../utils/index.ts";
 
+// TODO: add search by date ranges
 // TODO: pagination
 export async function get<T>(model: Model<T>, req: Request) {
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 10;
   const skip = (page - 1) * limit;
 
-  const searchQuery: RootFilterQuery<T> = { $or: [] };
+  const searchQuery: RootFilterQuery<T> = {};
 
   if (req.query.search) {
     const searchRegex = { $regex: req.query.search, $options: "i" };
-    searchQuery.$or = [{ logId: searchRegex }];
+    searchQuery.$or = [
+      // { logId: searchRegex },
+      { agentName: searchRegex },
+      { endpointIp: searchRegex },
+      { source: searchRegex },
+      { path: searchRegex },
+      { "data.raw": searchRegex },
+      { "data.processed.summary": searchRegex },
+    ];
   }
 
   try {
@@ -22,7 +31,7 @@ export async function get<T>(model: Model<T>, req: Request) {
       .find({ ...searchQuery })
       .skip(skip)
       .limit(limit)
-      .sort({ logId: -1})
+      .sort({ logId: -1 });
 
     if (!data) throw new Error();
 
@@ -37,7 +46,7 @@ export async function get<T>(model: Model<T>, req: Request) {
     logger.info(`DB | GET req [${strObj(data)}]`);
     return responseData;
   } catch (error) {
-    logger.error(`DB | error during GET req`);
+    logger.error(`DB | error during GET req: ${error}`);
     throw error;
   }
 }

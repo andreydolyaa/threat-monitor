@@ -22,17 +22,23 @@ const Logs = () => {
     );
   }, [currentPage, search]);
 
+  const handleOnSearch = (data: any) => {
+    console.log({data});
+    setSearch(data);
+    console.log({data});
+  };
+
   if (loading) {
     return <Loading isFullPage={true} />;
   }
-  
+
   if (!logs.length || error) {
     return <Empty message={error ? error : "no log data found"} />;
   }
 
   return (
     <Container column>
-      <LogsToolbar />
+      <LogsToolbar onSearch={handleOnSearch} />
       <LogsTableHeader />
       <LogsTable logs={logs} />
       <Pagination

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { getLogs } from "../api/api";
-import { LogsState } from "../types";
+import { Log, LogsState } from "../types";
 import { AxiosError } from "axios";
 
 type CustomError = {
@@ -25,5 +25,10 @@ export const useLogsStore = create<LogsState>((set) => ({
       }
       set({ loading: false, error: (error as Error).message });
     }
+  },
+  addLog: (log: Log) => {
+    set((state) => {
+      return { logs: [log, ...state.logs] };
+    });
   },
 }));
