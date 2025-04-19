@@ -26,13 +26,13 @@ const LogsSchema = new mongoose.Schema(
       index: true,
     },
     logId: {
-      type: Number,
+      type: String,
     },
     data: {
       raw: String,
       processed: {
         suspicious: Boolean,
-        severity: Number,
+        severity: String,
         summary: String,
       },
     },

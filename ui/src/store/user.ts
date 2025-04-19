@@ -24,7 +24,8 @@ export const useUserStore = create<UserState>((set) => ({
       const response = await fetchUser();
       set({ user: response.user, loading: false });
     } catch (error) {
-      set({ error: (error as Error).message, loading: false });
+      localStorage.removeItem(import.meta.env.VITE_TOKEN_KEY);
+      set({ error: (error as Error).message, loading: false, user: null });
     }
   },
 

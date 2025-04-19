@@ -3,7 +3,6 @@ import express, { type Express, type Router } from "express";
 import cors from "cors";
 import logger from "./logger.ts";
 import { WsServer } from "./ws-server.ts";
-import { WebSocketServer } from "ws";
 
 interface ServerOptions {
   port: number;

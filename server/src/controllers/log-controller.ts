@@ -1,11 +1,10 @@
 import { type Request, type Response } from "express";
 import { Log } from "../models/log-model.ts";
-import { create, del, get } from "../modules/actions/db-actions.ts";
+import { del, get } from "../modules/actions/db-actions.ts";
 import type { CounterSchema, TLog } from "../types/index.ts";
 import { analyzeLog } from "../modules/log-analyzer/analyze.ts";
 import logger from "../core/logger.ts";
 import { Counter } from "../models/counter-model.ts";
-import { responseWrapper, sleep } from "../utils/index.ts";
 import { notify } from "../modules/actions/ws-actions.ts";
 
 // TODO: pagination
@@ -35,12 +34,12 @@ export const createLog = async (log: TLog) => {
     const isCounterExist = await Counter.countDocuments();
 
     if (!isCounterExist) {
-      await Counter.create({ seq: 999 });
+      await Counter.create({ seq: "999" });
     }
 
     const logIdCounter: CounterSchema = await Counter.findOneAndUpdate(
       identifier,
-      { $inc: { seq: 1 } },
+      { $inc: { seq: "1" } },
       { new: true, upsert: true }
     ).lean();
 
@@ -48,7 +47,7 @@ export const createLog = async (log: TLog) => {
     log.data.processed = analyzed;
 
     logger.info(`LOG | log analysis done [LOG_ID: ${logIdCounter.seq}]`);
-    
+
     notify("log-message", log);
     return await Log.create(log);
   } catch (error) {

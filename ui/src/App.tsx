@@ -13,7 +13,7 @@ import { useUserStore } from "./store/user";
 import { useWebSocket } from "./hooks/useWebSocket";
 
 function App() {
-  const { fetchUser } = useUserStore();
+  const { fetchUser, loading, user } = useUserStore();
   const [isInitialized, setIsInitialized] = useState(false);
   const url = "ws://localhost:3005/ws"
   const websocket = useWebSocket(url);
@@ -22,8 +22,7 @@ function App() {
     fetchUser().then(() => setIsInitialized(true));
   }, []);
 
-  // if (!isInitialized) return "";
-  if (!isInitialized) return <Loading isFullPage={true} />;
+  if (loading && !user) return <Loading isFullPage={true} />;
 
   return (
     <BrowserRouter>

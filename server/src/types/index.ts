@@ -15,7 +15,7 @@ export type TAgent = {
 };
 
 export type LogAnalysisResult = {
-  severity: number;
+  severity: number | string;
   suspicious: boolean;
   summary: string;
 };
@@ -26,8 +26,8 @@ export type TLog = {
   endpointIp: string;
   source: string;
   path: string;
-  timestamp: Date;
-  logId?: number;
+  timestamp: Date | string;
+  logId?: number | string;
   data: {
     raw: string;
     processed: LogAnalysisResult;

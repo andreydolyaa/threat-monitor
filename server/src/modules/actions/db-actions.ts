@@ -16,13 +16,14 @@ export async function get<T>(model: Model<T>, req: Request) {
   if (req.query.search) {
     const searchRegex = { $regex: req.query.search, $options: "i" };
     searchQuery.$or = [
-      // { logId: searchRegex },
+      { logId: searchRegex },
       { agentName: searchRegex },
       { endpointIp: searchRegex },
       { source: searchRegex },
       { path: searchRegex },
       { "data.raw": searchRegex },
       { "data.processed.summary": searchRegex },
+      { "data.processed.severity": searchRegex },
     ];
   }
 

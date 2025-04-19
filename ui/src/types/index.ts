@@ -100,6 +100,8 @@ export type LogProps = {
 
 export type LogsTableProps = {
   logs: Log[];
+  loading: boolean;
+  error: string | null;
 };
 
 export type SearchProps = {

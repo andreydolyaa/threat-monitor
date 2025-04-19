@@ -4,7 +4,6 @@ import { useUserStore } from "../store/user";
 
 const PrivateRoutes = () => {
   const { user } = useUserStore();
-
   return user ? <Layout /> : <Navigate to="/login" replace />;
 };
 
