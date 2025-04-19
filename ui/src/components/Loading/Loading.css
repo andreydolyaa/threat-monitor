@@ -2,6 +2,7 @@
   .icon {
     font-size: 22px;
     animation: spin 1s linear infinite;
+    color: rgb(76, 83, 113);
   }
   p {
     font-size: 12px;

@@ -9,7 +9,7 @@ type CustomError = {
 
 export const useLogsStore = create<LogsState>((set) => ({
   logs: [],
-  loading: false,
+  loading: true,
   error: null,
 
   getLogs: async ({ currentPage, limit, search }) => {

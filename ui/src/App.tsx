@@ -7,22 +7,21 @@ import Alerts from "./pages/Alerts/Alerts";
 import VirtusTotal from "./pages/VirusTotal/VirtusTotal";
 import Login from "./pages/Login/Login";
 import PublicRoutes from "./layout/PublicRoutes";
-import Loading from "./components/Loading/Loading";
 import Agents from "./pages/Agents/Agents";
 import { useUserStore } from "./store/user";
 import { useWebSocket } from "./hooks/useWebSocket";
 
 function App() {
-  const { fetchUser, loading, user } = useUserStore();
+  const { fetchUser } = useUserStore();
   const [isInitialized, setIsInitialized] = useState(false);
-  const url = "ws://localhost:3005/ws"
+  const url = "ws://localhost:3005/ws";
   const websocket = useWebSocket(url);
 
   useEffect(() => {
     fetchUser().then(() => setIsInitialized(true));
   }, []);
 
-  if (loading && !user) return <Loading isFullPage={true} />;
+  if (!isInitialized) return null;
 
   return (
     <BrowserRouter>

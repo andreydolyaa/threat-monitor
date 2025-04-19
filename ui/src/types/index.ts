@@ -64,7 +64,7 @@ export type Log = {
 export type LogResponseWrapper = {
   type: string;
   data: Log;
-}
+};
 
 export interface PaginationQuery {
   currentPage: number;
@@ -102,6 +102,9 @@ export type LogsTableProps = {
   logs: Log[];
   loading: boolean;
   error: string | null;
+  currentPage: number;
+  totalPages: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export type SearchProps = {

@@ -43,7 +43,7 @@
   display: grid;
   grid-template-columns: var(--grid-template-columns);
   width: 100%;
-  border: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   background: rgb(19, 92, 201);
   background: linear-gradient(
     149deg,
@@ -52,7 +52,6 @@
   );
   text-transform: uppercase;
   border-radius: var(--border-radius);
-  margin-bottom: 10px;
   font-weight: 500;
   div {
     height: 44px;
@@ -67,6 +66,9 @@
   min-height: 70px !important;
   width: 100%;
   margin: 0 0 26px 0;
+  /* padding:26px; */
+  display: flex;
+  align-items: center;
 }
 
 .log-details {

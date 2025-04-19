@@ -1,7 +1,6 @@
 import "./Logs.css";
 import { useEffect, useState } from "react";
 import { useLogsStore } from "../../store/logs";
-import Pagination from "../../components/Pagination/Pagination";
 import Container from "../../components/Container/Container";
 import LogsToolbar from "./LogsToolbar";
 import LogsTable from "./LogsTable";
@@ -26,11 +25,13 @@ const Logs = () => {
   return (
     <Container column>
       <LogsToolbar onSearch={handleOnSearch} />
-      <LogsTable logs={logs} loading={loading} error={error} />
-      <Pagination
+      <LogsTable
+        logs={logs}
+        loading={loading}
+        error={error}
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={setCurrentPage}
+        setCurrentPage={setCurrentPage}
       />
     </Container>
   );
