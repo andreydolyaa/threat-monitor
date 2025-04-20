@@ -1,8 +1,6 @@
 import { Database } from "./core/database.ts";
 import { Server } from "./core/server.ts";
-import { Agent } from "./models/agent-model.ts";
-import { Log } from "./models/log-model.ts";
-import { deleteDocumentsIfExceedsLimit } from "./modules/actions/db-actions.ts";
+import { createBasicRules } from "./modules/log-analyzer/analyze.ts";
 import router from "./router.ts";
 
 if (!process.env.SERVER_PORT) {
@@ -26,7 +24,7 @@ database.connect();
 
 database.on("db_connected", () => {
   server.start();
+  createBasicRules();
 });
-
 
 // deleteDocumentsIfExceedsLimit(Log)
