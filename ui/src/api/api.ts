@@ -20,11 +20,12 @@ export const getLogs = async ({
   currentPage,
   limit,
   search,
+  severity,
 }: PaginationQuery) => {
   const response = await api.get(
     `/api/logs?page=${currentPage}&limit=${limit}&search=${encodeURIComponent(
       search
-    )}`
+    )}&severity=${severity}`
   );
   return response.data;
 };

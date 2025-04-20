@@ -2,7 +2,7 @@ import type { Request } from "express";
 import { type Model, type Document, type RootFilterQuery } from "mongoose";
 import logger from "../../core/logger.ts";
 import type { DbActionFilter } from "../../types/index.ts";
-import { strObj } from "../../utils/index.ts";
+import { severitiesMap, strObj } from "../../utils/index.ts";
 
 // TODO: add search by date ranges
 // TODO: pagination
@@ -12,6 +12,9 @@ export async function get<T>(model: Model<T>, req: Request) {
   const skip = (page - 1) * limit;
 
   const searchQuery: RootFilterQuery<T> = {};
+  const severityFilter = req.query.severity
+    ? { "data.processed.severity": severitiesMap(req.query.severity!) }
+    : {};
 
   if (req.query.search) {
     const searchRegex = { $regex: req.query.search, $options: "i" };
@@ -26,10 +29,16 @@ export async function get<T>(model: Model<T>, req: Request) {
       { "data.processed.severity": searchRegex },
     ];
   }
+  console.log(req.query);
+
+  console.log(severityFilter);
 
   try {
     const data = await model
-      .find({ ...searchQuery })
+      .find({
+        ...searchQuery,
+        ...severityFilter,
+      })
       .skip(skip)
       .limit(limit)
       .sort({ logId: -1 });

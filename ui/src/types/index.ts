@@ -1,3 +1,4 @@
+import { ChangeEventHandler, SetStateAction } from "react";
 import { IconType } from "react-icons";
 
 export type SidebarState = {
@@ -70,6 +71,7 @@ export interface PaginationQuery {
   currentPage: number;
   limit: number;
   search: string;
+  severity: string;
 }
 
 export interface ResponseWithPagination {
@@ -89,6 +91,7 @@ export interface LogsState {
     currentPage,
     limit,
     search,
+    severity,
   }: PaginationQuery) => Promise<ResponseWithPagination>;
   addLog: (log: Log) => void;
 }
@@ -107,6 +110,15 @@ export type LogsTableProps = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export type SearchProps = {
-  onSearch: (search: string) => void;
+export type SearchType = {
+  onSearch: React.Dispatch<SetStateAction<string>>
+}
+
+export type SelectType = {
+  onChange: React.Dispatch<SetStateAction<string>>
+}
+
+export type LogsToolbarProps = {
+  onSearch: React.Dispatch<SetStateAction<string>>
+  setSeverity: React.Dispatch<SetStateAction<string>>
 };

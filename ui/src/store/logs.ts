@@ -12,10 +12,10 @@ export const useLogsStore = create<LogsState>((set) => ({
   loading: true,
   error: null,
 
-  getLogs: async ({ currentPage, limit, search }) => {
+  getLogs: async ({ currentPage, limit, search, severity }) => {
     set({ loading: true, error: null });
     try {
-      const response = await getLogs({ currentPage, limit, search });
+      const response = await getLogs({ currentPage, limit, search, severity });
       set({ logs: response.data?.data, loading: false });
       return response;
     } catch (error) {

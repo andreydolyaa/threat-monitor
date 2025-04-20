@@ -1,9 +1,9 @@
 import "./Search.css";
-import { SearchProps } from "../../types";
 import { useEffect, useState } from "react";
 import { TbSearch } from "react-icons/tb";
+import { SearchType } from "../../types";
 
-const Search = ({ onSearch }: SearchProps) => {
+const Search = ({ onSearch }: SearchType) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {

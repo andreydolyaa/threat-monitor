@@ -7,24 +7,27 @@ import LogsTable from "./LogsTable";
 
 const Logs = () => {
   const [search, setSearch] = useState("");
+  const [severity, setSeverity] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const { getLogs, logs, loading, error } = useLogsStore();
   const limit = 12;
 
   useEffect(() => {
-    getLogs({ currentPage, limit, search }).then((logs) =>
+    getLogs({ currentPage, limit, search, severity }).then((logs) =>
       setTotalPages(logs.data.totalPages)
     );
-  }, [currentPage, search]);
+    
+    
+  }, [currentPage, search, severity]);
 
-  const handleOnSearch = (data: any) => {
-    setSearch(data);
-  };
+  // const handleOnSearch = (data: any) => {
+  //   setSearch(data);
+  // };
 
   return (
     <Container column>
-      <LogsToolbar onSearch={handleOnSearch} />
+      <LogsToolbar onSearch={setSearch} setSeverity={setSeverity} />
       <LogsTable
         logs={logs}
         loading={loading}

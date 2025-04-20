@@ -1,0 +1,11 @@
+.select {
+  width: 140px;
+  height: 36px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background-2);
+  border-radius: var(--border-radius);
+  color: var(--font-color-secondary);
+  outline: none;
+  padding:0 10px;
+  text-transform: capitalize;
+}
