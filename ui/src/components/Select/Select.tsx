@@ -1,25 +1,23 @@
 import { ChangeEvent } from "react";
 import "./Select.css";
+import { SelectProps } from "../../types";
 
-type OptionType = {
-  text: string;
-  val: number | string;
-};
-
-type SelectProps = {
-  handleOnChange: (val: string) => void;
-  options: OptionType[];
-  label: string;
-};
-
-const Select = ({ handleOnChange, options, label }: SelectProps) => {
+const Select = ({
+  handleOnChange,
+  options,
+  label,
+  setCurrentPage,
+}: SelectProps) => {
   const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setCurrentPage(1);
     handleOnChange(event.target.value);
   };
 
   return (
     <select className="select" onChange={onChange}>
-      <option label={label} value="">{label}</option>
+      <option label={label} value="">
+        {label}
+      </option>
       {options.map((option) => {
         return (
           <option key={option.text} value={option.text}>

@@ -101,24 +101,41 @@ export type LogProps = {
   onClick?: () => void;
 };
 
+export type StateActionType<T> = React.Dispatch<React.SetStateAction<T>>;
+
 export type LogsTableProps = {
   logs: Log[];
   loading: boolean;
   error: string | null;
   currentPage: number;
   totalPages: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: StateActionType<number>;
 };
 
 export type SearchType = {
-  onSearch: React.Dispatch<SetStateAction<string>>
-}
+  onSearch: StateActionType<string>;
+  setCurrentPage: StateActionType<number>;
+};
 
 export type SelectType = {
-  onChange: React.Dispatch<SetStateAction<string>>
-}
+  onChange: StateActionType<string>;
+  setCurrentPage: StateActionType<number>;
+};
 
 export type LogsToolbarProps = {
-  onSearch: React.Dispatch<SetStateAction<string>>
-  setSeverity: React.Dispatch<SetStateAction<string>>
+  onSearch: StateActionType<string>;
+  setSeverity: StateActionType<string>;
+  setCurrentPage: StateActionType<number>;
+};
+
+export type OptionType = {
+  text: string;
+  val: number | string;
+};
+
+export type SelectProps = {
+  setCurrentPage: StateActionType<number>;
+  handleOnChange: (val: string) => void;
+  options: OptionType[];
+  label: string;
 };

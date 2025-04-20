@@ -14,20 +14,18 @@ const Logs = () => {
   const limit = 12;
 
   useEffect(() => {
-    getLogs({ currentPage, limit, search, severity }).then((logs) =>
-      setTotalPages(logs.data.totalPages)
-    );
-    
-    
+    getLogs({ currentPage, limit, search, severity }).then((logs) => {
+      setTotalPages(logs.data.totalPages);
+    });
   }, [currentPage, search, severity]);
-
-  // const handleOnSearch = (data: any) => {
-  //   setSearch(data);
-  // };
 
   return (
     <Container column>
-      <LogsToolbar onSearch={setSearch} setSeverity={setSeverity} />
+      <LogsToolbar
+        onSearch={setSearch}
+        setSeverity={setSeverity}
+        setCurrentPage={setCurrentPage}
+      />
       <LogsTable
         logs={logs}
         loading={loading}

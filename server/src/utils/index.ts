@@ -15,11 +15,11 @@ export function responseWrapper(type: string, data: any) {
 
 export function severitiesMap(
   severityStr: "low" | "medium" | "high"
-): readonly string[] {
+): string[] {
   const map = {
     low: ["1", "2", "3", "4", "5"],
     medium: ["6", "7"],
     high: ["8", "9", "10"],
-  } as const;
+  };
   return map[severityStr] ?? [];
 }

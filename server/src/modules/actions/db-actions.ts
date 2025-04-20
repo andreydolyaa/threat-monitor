@@ -13,7 +13,11 @@ export async function get<T>(model: Model<T>, req: Request) {
 
   const searchQuery: RootFilterQuery<T> = {};
   const severityFilter = req.query.severity
-    ? { "data.processed.severity": severitiesMap(req.query.severity!) }
+    ? {
+        "data.processed.severity": severitiesMap(
+          req.query.severity as "low" | "medium" | "high"
+        ),
+      }
     : {};
 
   if (req.query.search) {
@@ -26,12 +30,8 @@ export async function get<T>(model: Model<T>, req: Request) {
       { path: searchRegex },
       { "data.raw": searchRegex },
       { "data.processed.summary": searchRegex },
-      { "data.processed.severity": searchRegex },
     ];
   }
-  console.log(req.query);
-
-  console.log(severityFilter);
 
   try {
     const data = await model
@@ -45,7 +45,7 @@ export async function get<T>(model: Model<T>, req: Request) {
 
     if (!data) throw new Error();
 
-    const totalLogs = await model.countDocuments({ ...searchQuery });
+    const totalLogs = await model.countDocuments({ ...searchQuery, ...severityFilter });
     const totalPages = Math.ceil(totalLogs / limit);
     const responseData = {
       data,

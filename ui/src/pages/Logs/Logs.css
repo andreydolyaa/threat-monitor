@@ -63,19 +63,19 @@
 .logs-toolbar {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  min-height: 70px !important;
+  min-height: 80px !important;
   width: 100%;
   margin: 0 0 26px 0;
-  /* padding:26px; */
   display: flex;
   align-items: center;
+  gap: 26px;
+  padding: 0 26px;
 }
 
 .log-details {
   animation: show 0.3s ease-in-out 1;
   width: 100%;
   height: 100%;
-  /* border: 1px solid red; */
   border-bottom: 1px solid var(--border-color);
 }
 

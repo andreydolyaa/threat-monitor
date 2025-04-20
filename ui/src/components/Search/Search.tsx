@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { TbSearch } from "react-icons/tb";
 import { SearchType } from "../../types";
 
-const Search = ({ onSearch }: SearchType) => {
+const Search = ({ onSearch, setCurrentPage }: SearchType) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     const debounce = setTimeout(() => {
+      setCurrentPage(1);
       onSearch(search);
     }, 500);
 
