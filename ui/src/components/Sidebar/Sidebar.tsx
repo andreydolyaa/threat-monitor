@@ -5,7 +5,7 @@ import SidebarItem from "./SidebarItem";
 import SidebarTitle from "./SidebarTitle";
 import {
   TbChartPie2,
-  TbAlertHexagon,
+  TbScript,
   TbReportAnalytics,
   TbBookmark,
   TbSettings,
@@ -25,7 +25,7 @@ const Sidebar = () => {
       items: [
         { title: "Dashboard", icon: TbChartPie2, link: "/" },
         { title: "Logs", icon: TbReportAnalytics, link: "/logs" },
-        { title: "Alert Queue", icon: TbAlertHexagon, link: "/alerts" },
+        { title: "Rules", icon: TbScript, link: "/rules" },
         { title: "Agents", icon: TbScanEye, link: "/agents" },
       ],
     },

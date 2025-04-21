@@ -1,6 +1,7 @@
 import Search from "../../components/Search/Search";
 import { LogsToolbarProps } from "../../types";
 import Select from "../../components/Select/Select";
+import Toolbar from "../../components/Toolbar/Toolbar";
 
 const LogsToolbar = ({
   onSearch,
@@ -14,7 +15,7 @@ const LogsToolbar = ({
   ];
 
   return (
-    <div className="logs-toolbar">
+    <Toolbar>
       <Search onSearch={onSearch} setCurrentPage={setCurrentPage} />
       <Select
         setCurrentPage={setCurrentPage}
@@ -22,7 +23,7 @@ const LogsToolbar = ({
         options={selectOptions}
         label="severity"
       />
-    </div>
+    </Toolbar>
   );
 };
 

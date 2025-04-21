@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { ChangeEventHandler, SetStateAction } from "react";
 import { IconType } from "react-icons";
 
@@ -83,6 +84,21 @@ export interface ResponseWithPagination {
   };
 }
 
+export type Rule = {
+  _id: string;
+  pattern: string;
+  severity: string;
+  summary: string;
+  suspicious: string;
+};
+
+export interface RulesState {
+  rules: Rule[];
+  loading: boolean;
+  error: string | null;
+  getRules: () => Promise<void>
+}
+
 export interface LogsState {
   logs: Log[];
   loading: boolean;
@@ -139,3 +155,10 @@ export type SelectProps = {
   options: OptionType[];
   label: string;
 };
+
+export type CustomError = {
+  message: string;
+};
+
+export type CustomAxiosError = AxiosError<CustomError>;
+

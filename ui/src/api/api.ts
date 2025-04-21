@@ -29,3 +29,8 @@ export const getLogs = async ({
   );
   return response.data;
 };
+
+export const getRules = async () => {
+  const response = await api.get("/api/rules");
+  return response.data;
+};

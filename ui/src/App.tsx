@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import PrivateRoutes from "./layout/PrivateRoutes";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Logs from "./pages/Logs/Logs";
-import Alerts from "./pages/Alerts/Alerts";
+import Alerts from "./pages/Rules/Rules";
 import VirtusTotal from "./pages/VirusTotal/VirtusTotal";
 import Login from "./pages/Login/Login";
 import PublicRoutes from "./layout/PublicRoutes";
@@ -29,7 +29,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/logs" element={<Logs />} />
-          <Route path="/alerts" element={<Alerts />} />
+          <Route path="/rules" element={<Alerts />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/virustotal" element={<VirtusTotal />} />
           <Route path="*" element={<Navigate to="/" replace />} />
